@@ -1,0 +1,22 @@
+{
+  "name": "converter",
+  "version": "1.0.0",
+  "description": "video converter",
+  "type": "module",
+  "main": "converter.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.4.3",
+    "jest": "^28.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
