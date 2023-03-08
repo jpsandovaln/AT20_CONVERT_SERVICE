@@ -3,7 +3,7 @@ import { Converter } from "./converter";
 describe('Tests for Converter class', () => {
     it('Should be able to convert a video to another format', () => {
         const converter = new Converter();
-        const inputVideo = 'D:/Charles/JalaCapacitacion/Progra101/ffmpeg/converter/samples/Rio.avi';
+        const inputVideo = 'D:/Charles/JalaCapacitacion/Progra101/ffmpeg/converter/samples/sample1.avi';
         const outputVideo = 'mp4';
         return converter.runConverter(inputVideo, outputVideo)
         .then(data => {
