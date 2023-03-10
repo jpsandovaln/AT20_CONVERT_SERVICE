@@ -1,2 +1,2 @@
-node_modules/
-coverage/
+/converter_audio/node_modules
+/ImageConvertService/node_modules
