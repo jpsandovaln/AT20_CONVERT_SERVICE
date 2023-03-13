@@ -11,7 +11,6 @@ class ImageCommand extends Command {
 
     constructor() {
         super();
-        //this.#bitRate='';
         super.inputFile;
         super.convertedFilePath;
         this.#typeOfOutput = '';

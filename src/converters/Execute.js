@@ -2,7 +2,6 @@
 const { exec } = require('child_process');
 
 class Execute {
-
     command(command, outFilePath) {
         return new Promise((resolve, reject) => {
             exec(command, (error, stdout, stderr) => {
@@ -17,6 +16,6 @@ class Execute {
     }
 }
 
-module.exports={
+module.exports = {
     Execute,
-}
+};

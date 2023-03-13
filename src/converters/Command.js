@@ -42,10 +42,9 @@ class Command {
     }
 
 
-   getCommand() {
-    throw new Error('Abstract class you must implement this method');
+    getCommand() {
+        throw new Error('Abstract class you must implement this method');
     }
-
 }
 
 module.exports = {
