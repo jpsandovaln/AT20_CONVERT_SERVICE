@@ -1,6 +1,7 @@
 
 const dotenv = require('dotenv');
 const { AudioCommand } = require('./audioConverter/audioCommand.js');
+const { Execute } = require('./Execute.js');
 dotenv.config({path: __dirname + '/../../.env'});
 
 const newAudioFile = 'DigitalLove.flac';
@@ -8,6 +9,8 @@ const audioOutExtension = 'flac';
 
 //Creates a new object audio for audio commands
 var audio = new AudioCommand();
+//Creates an object for executing the commands that were sent
+var execute = new Execute();
 //Adds the input file with its address to convert
 audio.inputFile = `${process.env.UPLOADS_PATH_AUDIO}${newAudioFile}`;
 //Adds the extension of the wanted output file
@@ -22,4 +25,5 @@ audio.convertedFilePath = audioOutFilePath;
 var command = audio.getCommand();
 console.log(command);
 //Converts the input file and returns the state of the conversion
-audio.convert(command, audio.convertedFilePath);
+execute.command(command, audio.convertedFilePath);
+

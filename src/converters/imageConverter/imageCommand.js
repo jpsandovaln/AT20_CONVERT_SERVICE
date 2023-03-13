@@ -1,6 +1,6 @@
-const { Converter } = require('./../converter.js');
+const { Command } = require('./../Command.js');
 
-class ImageCommand extends Converter {
+class ImageCommand extends Command {
     #width;
 
     #height;
