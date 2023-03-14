@@ -16,11 +16,19 @@ class pdfCommand extends Command {
 
 
     set newDensity(densityValue) {
-        this.#density = `-density ${densityValue}`;
+        if (densityValue === undefined) {
+            this.#density = '';
+        } else {
+            this.#density = `-density ${densityValue}`;
+        }
     }
 
     set newQuality(qualityValue) {
-        this.#quality = `-quality ${qualityValue}`;
+        if (qualityValue === undefined) {
+            this.#quality = '';
+        } else {
+            this.#quality = `-quality ${qualityValue}`;
+        }
     }
 
     getCommand() {

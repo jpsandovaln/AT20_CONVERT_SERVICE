@@ -11,7 +11,11 @@ class AudioCommand extends Command {
     }
 
     set bitRate (newBitRate) {
-        this.#bitRate = `-b:a ${newBitRate}`;
+        if (newBitRate === undefined) {
+            this.#bitRate = '';
+        } else {
+            this.#bitRate = `-b:a ${newBitRate}`;
+        }
     }
 
 

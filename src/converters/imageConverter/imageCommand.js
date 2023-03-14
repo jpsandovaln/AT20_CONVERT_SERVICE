@@ -21,19 +21,35 @@ class ImageCommand extends Command {
 
 
     set newWidth(Width) {
-        this.#width = `-resize ${Width}x`;
+        if (Width === undefined) {
+            this.#width = '';
+        } else {
+            this.#width = `-resize ${Width}x`;
+        }
     }
 
     set newHeight(Height) {
-        this.#height = `${Height}`;
+        if (Height === undefined) {
+            this.#height = '';
+        } else {
+            this.#height = `${Height}`;
+        }
     }
 
     set typeOfOutput(type) {
-        this.#typeOfOutput = `-type ${type}`;
+        if (type === undefined) {
+            this.#typeOfOutput = '';
+        } else {
+            this.#typeOfOutput = `-type ${type}`;
+        }
     }
 
     set rotateCW(degrees) {
-        this.#rotateCW = `-rotate ${degrees}`;
+        if (degrees === undefined) {
+            this.#rotateCW = '';
+        } else {
+            this.#rotateCW = `-rotate ${degrees}`;
+        }
     }
 
 

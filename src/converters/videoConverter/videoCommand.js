@@ -17,15 +17,27 @@ class VideoCommand extends Command {
     }
 
     set newWidth(Width) {
-        this.#width = `-s ${Width}x`;
+        if (Width === undefined) {
+            this.#width = '';
+        } else {
+            this.#width = `-s ${Width}x`;
+        }
     }
 
     set newHeight(Height) {
-        this.#height = `${Height}`;
+        if (Height === undefined) {
+            this.#height = '';
+        } else {
+            this.#height = `${Height}`;
+        }
     }
 
     set aspectRatio(ratio) {
-        this.#aspectRatio = `-aspect ${ratio}`;
+        if (ratio === undefined) {
+            this.#aspectRatio = '';
+        } else {
+            this.#aspectRatio = `-aspect ${ratio}`;
+        }
     }
 
     getCommand() {

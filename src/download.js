@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 /* A middleware that logs all the requests to the console. */
 app.use(morgan('dev'));
 
-app.listen(3000, () => 
+app.listen(3000, () =>
   console.log(`App is listening on port 3000`)
 );
 
@@ -49,9 +49,9 @@ app.post('/upload', async (req, res) => {
 });
 
 /* Downloading the file from the server. */
-app.get('/download', function(req, res){
+app.get('/download', function(req, res) {
   const fileName = req.query.x;
-  const file = `${__dirname}/downloads/`+fileName;
+  const file = `${__dirname}/downloads/` + fileName;
   res.download(file); // Set disposition and send it.
 });
 
