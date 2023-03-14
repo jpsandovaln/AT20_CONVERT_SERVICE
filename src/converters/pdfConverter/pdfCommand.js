@@ -1,6 +1,6 @@
-const { Converter } = require('./../converter.js');
+const { Command } = require('./../Command.js');
 
-class pdfCommand extends Converter {
+class pdfCommand extends Command {
     #density;
 
     #quality;
