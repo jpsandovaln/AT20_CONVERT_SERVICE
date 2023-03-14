@@ -5,6 +5,8 @@ class pdfCommand extends Command {
 
     #quality;
 
+    #pages;
+
     /**
      * The constructor function is used to initialize the object's properties.
      */
@@ -15,6 +17,7 @@ class pdfCommand extends Command {
         super.convertedFilePath;
         this.#density = '';
         this.#quality = '';
+        this.#pages = '';
     }
 
 
@@ -36,6 +39,21 @@ class pdfCommand extends Command {
     }
 
     /**
+    * If the rangeLow and rangeHigh are the same, then the pages property is set to a string with the
+    * rangeHigh in brackets. Otherwise, the pages property is set to a string with the rangeLow and
+    * rangeHigh in brackets.
+    * @param rangeLow - The lowest page number in the range.
+    * @param rangeHigh - The highest page number in the range.
+    */
+    newPageRange(rangeLow, rangeHigh) {
+        if (rangeLow == rangeHigh) {
+            this.#pages = `[${rangeHigh}]`;
+        } else {
+            this.#pages = `[${rangeLow}-${rangeHigh}]`;
+        }
+    }
+
+    /**
      * "The function gets the command to convert the file from the super class and then adds the
      * density and quality to the command."
      * </code>
@@ -43,7 +61,7 @@ class pdfCommand extends Command {
      */
     getCommand() {
         const converter = process.env.MAGICK;
-        var command = `${converter} ${this.#density} ${super.inputFile} ${this.#quality} ${super.convertedFilePath}`;
+        var command = `${converter} ${this.#density} ${super.inputFile}${this.#pages} ${this.#quality} ${super.convertedFilePath}`;
         return command;
     }
 }

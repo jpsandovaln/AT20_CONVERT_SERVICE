@@ -23,6 +23,8 @@ pdf.newQuality = 90;
 /* Creating the output path for the converted file. */
 const outFilePath = `${process.env.DOWNLOAD_PATH_PDF}${pdf.fileName(newFile)}.${outExtension}`;
 pdf.convertedFilePath = outFilePath;
+/* Setting the page range to convert. */
+pdf.newPageRange(0, 0);
 /* Getting the command to execute the desired action. */
 let command = pdf.getCommand();
 /* Printing the command to the console. */
