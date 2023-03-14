@@ -1,6 +1,6 @@
-const { Converter } = require('./../converter.js');
+const { Command } = require('./../Command.js');
 
-class AudioCommand extends Converter {
+class AudioCommand extends Command {
     #bitRate;
 
     constructor() {

@@ -1,5 +1,4 @@
-const { exec } = require('child_process');
-class Converter {
+class Command {
     #outExtension;
 
     #convertedFilePath;
@@ -42,21 +41,12 @@ class Converter {
         return inputExtension;
     }
 
-    convert(command, outFilePath) {
-        var result = new Promise((resolve, reject) => {
-            exec(command, (error, stdout, stderr) => {
-                if (error) {
-                    reject(console.log('An error occurred: ' + stderr));
-                } else {
-                    console.log('conversion completed');
-                    resolve(outFilePath);
-                }
-            });
-        });
-        return result;
+
+    getCommand() {
+        throw new Error('Abstract class you must implement this method');
     }
 }
 
 module.exports = {
-    Converter,
+    Command,
 };

@@ -1,6 +1,6 @@
-const { Converter } = require('./../converter.js');
+const { Command } = require('../Command.js');
 
-class VideoCommand extends Converter {
+class VideoCommand extends Command {
     #width;
 
     #height;
@@ -24,7 +24,7 @@ class VideoCommand extends Converter {
         this.#height = `${Height}`;
     }
 
-    set aspectRatio(ratio) {//can be only aspect
+    set aspectRatio(ratio) {
         this.#aspectRatio = `-aspect ${ratio}`;
     }
 

@@ -1,6 +1,6 @@
-const { Converter } = require('./../converter.js');
+const { Command } = require('./../Command.js');
 
-class ImageCommand extends Converter {
+class ImageCommand extends Command {
     #width;
 
     #height;
@@ -11,7 +11,6 @@ class ImageCommand extends Converter {
 
     constructor() {
         super();
-        //this.#bitRate='';
         super.inputFile;
         super.convertedFilePath;
         this.#typeOfOutput = '';
