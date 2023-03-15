@@ -36,7 +36,11 @@ class AudioCommand extends Command {
     * @param {integer} newBitRate - This is the bit rate of the output file
     */
     set bitRate (newBitRate) {
-        this.#bitRate = `-b:a ${newBitRate}`;
+        if (newBitRate === undefined) {
+            this.#bitRate = '';
+        } else {
+            this.#bitRate = `-b:a ${newBitRate}`;
+        }
     }
 
     /**

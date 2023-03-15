@@ -48,7 +48,11 @@ class ImageCommand extends Command {
     * @param {integer} Width - This is the width that the new image will have
     */
     set newWidth(Width) {
-        this.#width = `-resize ${Width}x`;
+        if (Width === undefined) {
+            this.#width = '';
+        } else {
+            this.#width = `-resize ${Width}x`;
+        }
     }
 
     /**
@@ -56,7 +60,11 @@ class ImageCommand extends Command {
     * @param {integer} Height - This is the height that the new image will have
     */
     set newHeight(Height) {
-        this.#height = `${Height}`;
+        if (Height === undefined) {
+            this.#height = '';
+        } else {
+            this.#height = `${Height}`;
+        }
     }
 
     /**
@@ -64,7 +72,11 @@ class ImageCommand extends Command {
     * @param {string} type This is the type that the new image will have
     */
     set typeOfOutput(type) {
-        this.#typeOfOutput = `-type ${type}`;
+        if (type === undefined) {
+            this.#typeOfOutput = '';
+        } else {
+            this.#typeOfOutput = `-type ${type}`;
+        }
     }
 
     /**
@@ -72,7 +84,11 @@ class ImageCommand extends Command {
     * @param {integer} degrees - This is the degrees to turn the new image clockwise
     */
     set rotateCW(degrees) {
-        this.#rotateCW = `-rotate ${degrees}`;
+        if (degrees === undefined) {
+            this.#rotateCW = '';
+        } else {
+            this.#rotateCW = `-rotate ${degrees}`;
+        }
     }
 
     /**

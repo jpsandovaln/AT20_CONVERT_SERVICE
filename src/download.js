@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 /* A middleware that logs all the requests to the console. */
 app.use(morgan('dev'));
 
-app.listen(3000, () => 
+app.listen(3000, () =>
   console.log(`App is listening on port 3000`)
 );
 

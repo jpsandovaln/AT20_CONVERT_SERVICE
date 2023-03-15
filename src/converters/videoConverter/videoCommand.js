@@ -45,7 +45,11 @@ class VideoCommand extends Command {
     * @param {integer} Width - This is the width of the output file
     */
     set newWidth(Width) {
-        this.#width = `-s ${Width}x`;
+        if (Width === undefined) {
+            this.#width = '';
+        } else {
+            this.#width = `-s ${Width}x`;
+        }
     }
 
     /*
@@ -55,7 +59,11 @@ class VideoCommand extends Command {
     * @param {integer} Heigth - This is the heigth of the output file
     */
     set newHeight(Height) {
-        this.#height = `${Height}`;
+        if (Height === undefined) {
+            this.#height = '';
+        } else {
+            this.#height = `${Height}`;
+        }
     }
 
     /*
@@ -65,7 +73,11 @@ class VideoCommand extends Command {
     * @param {string} ratio This is the new ratio of the output file
     */
     set aspectRatio(ratio) {
-        this.#aspectRatio = `-aspect ${ratio}`;
+        if (ratio === undefined) {
+            this.#aspectRatio = '';
+        } else {
+            this.#aspectRatio = `-aspect ${ratio}`;
+        }
     }
 
     /**
