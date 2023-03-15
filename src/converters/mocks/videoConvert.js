@@ -38,3 +38,4 @@ var command = video.getCommand();
 console.log(command);
 //Converts the input file and returns the state of the conversion
 execute.command(command, video.convertedFilePath);
+

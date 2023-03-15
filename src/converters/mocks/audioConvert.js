@@ -36,3 +36,4 @@ var command = audio.getCommand();
 console.log(command);
 //Converts the input file and returns the state of the conversion
 execute.command(command, audio.convertedFilePath);
+
