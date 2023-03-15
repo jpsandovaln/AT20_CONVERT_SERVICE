@@ -1,7 +1,7 @@
 /**
 @Execute.js Copyright(c) 2023 Jalasoft
-2643AvMelchorPerezdeOlguin,ColquiriSud,Cochabamba,Bolivia.
-Av.GeneralInofuentesesquinaCalle20,EdificioUnionNo1376,LaPaz,Bolivia
+2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
 All rights reserved
 This software is the confidential and proprietary information of
 Jalasoft,ConfidentialInformation"). You shall not
@@ -11,28 +11,43 @@ with Jalasoft
 */
 const { exec } = require('child_process');
 
+
 /* It executes a command and returns a promise */
 class Execute {
     /**
-     * It takes a command and an output file path as arguments, and returns a promise that resolves to
-     * the output file path
-     * @param {string} command - The command to be executed.
-     * @param {string} outFilePath - The path to the output file.
-     * @returns A promise that resolves to the path of the converted file.
+     * It converts a file from one format to another.
+     * @param command - The command to run.
+     * @param outFilePath - The path to the output file.
+     * @returns The return value is a promise that resolves to an object with two properties: stdout
+     * and outputPath.
      */
-    command(command, outFilePath) {
+    async command(command, outFilePath) {
+        return await this.convert(command, (stdout, stderr) => {
+            return {stdout:'Conversion Completed',
+                outputPath: outFilePath};
+        });
+    }
+
+    /**
+     * It takes a command, executes it, and returns a promise that resolves to the output of the
+     * command
+     * @param command - The command to execute.
+     * @param [callback] - A function that will be called when the command is finished.
+     * @returns A promise that resolves to the result of the callback function.
+     */
+    convert(command, callback = () => {}) {
         return new Promise((resolve, reject) => {
             exec(command, (error, stdout, stderr) => {
                 if (error) {
-                    reject(console.log('An error occurred: ' + stderr));
-                } else {
-                    console.log('conversion completed');
-                    resolve(outFilePath);
+                    reject(error);
+                    return;
                 }
+                resolve(callback(stdout, stderr));
             });
         });
     }
 }
+
 /*
 Exports the Execute class
 */

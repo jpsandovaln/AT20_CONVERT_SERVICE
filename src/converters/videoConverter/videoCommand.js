@@ -1,7 +1,7 @@
 /*
 @videoCommand.js Copyright(c) 2021 Jalasoft
-2643AvMelchorPerezdeOlguin,ColquiriSud,Cochabamba,Bolivia.
-Av.GeneralInofuentesesquinaCalle20,EdificioUnionNo1376,LaPaz,Bolivia
+2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
 All rights reserved
 This software is the confidential and proprietary information of
 Jalasoft,ConfidentialInformation"). You shall not
