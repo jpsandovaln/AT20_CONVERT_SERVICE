@@ -3,7 +3,7 @@ DEPENDENCIES FOR CONVERTERS
 download https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z
 install and modify env variables
 install imageMagick
-isntall ghostscript
+install ghostscript
 download https://ghostscript.com/releases/index.html
 download the first link here documentation
 https://ghostscript.com/docs/9.54.0/Install.htm

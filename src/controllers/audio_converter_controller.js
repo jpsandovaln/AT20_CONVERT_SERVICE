@@ -1,5 +1,4 @@
 const { AudioCommand } = require('../converters/audioConverter/audioCommand.js');
-const { DOWNConverterController } = require('./download_controller.js');
 const { Execute } = require('../converters/Execute.js');
 const { next } = require('process');
 const path = require('path');
@@ -23,7 +22,6 @@ class AudioConverterController {
         if (ext === undefined) {
             ext = fileExt;
         }
-        //first hardcode
         /* This is creating a new instance of the AudioCommand class, and then it is setting the inputFile,
         outExtension, bitRate and convertedFilePath. */
         const audioConverter = new AudioCommand();
@@ -38,6 +36,25 @@ class AudioConverterController {
         try {
             const response = await execute.command(command, audioConverter.convertedFilePath);
             res.send(response);
+        } catch (error) {
+            res.status(500).json({
+                ok: false,
+                msg: 'Error de servidor ' + error,
+                error: error
+            });
+        }
+    }
+
+    /**
+     * It downloads the file from the server to the client
+     * @param req - The request object.
+     * @param res - The response object.
+     */
+    get(req, res) {
+        try {
+            const file = req.query;
+            const downloadFile = file.src;
+            res.download(downloadFile); // Set disposition and send it.
         } catch (error) {
             res.status(500).json({
                 ok: false,

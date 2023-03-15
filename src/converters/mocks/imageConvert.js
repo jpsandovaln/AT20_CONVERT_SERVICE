@@ -1,17 +1,28 @@
+/**
+@imageConvert.js Copyright(c) 2023 Jalasoft
+2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+All rights reserved
+This software is the confidential and proprietary information of
+Jalasoft,ConfidentialInformation"). You shall not
+disclose such Confidential Information and shall use it only in
+accordance with the terms of the license agreement you entered into
+with Jalasoft
+*/
 const dotenv = require('dotenv');
-const { ImageCommand } = require('./imageConverter/imageCommand.js');
-const { Execute } = require('./Execute.js');
+const { ImageCommand } = require('../imageConverter/imageCommand.js');
+const { Execute } = require('../Execute.js');
 
-dotenv.config({path: __dirname + '/../../.env'});
+dotenv.config({path: __dirname + './../../../.env'});
 
 const newImageFile = 'test.jpg';
 const imageOutExtension = 'jpg';
-//Creates a new object audio for image commands
+//Creates a new object image for image commands
 var image = new ImageCommand();
 //Creates an object for executing the commands that were sent
 var execute = new Execute();
 //Adds the input file with its address to convert
-image.inputFile = `${process.env.UPLOADS_PATH_IMAGE}${newImageFile}`;
+image.inputFile = `${'../imageConverter/inputs/'}${newImageFile}`;
 //Adds the extension of the wanted output file
 image.outExtension = imageOutExtension;
 //Sets the dimensions of the output file
@@ -22,7 +33,7 @@ image.typeOfOutput = 'grayscale';
 //Sets the degrees to rotate clock wisw CW
 image.rotateCW = 90;
 //Creates the output path according to design
-const imageOutFilePath = `${process.env.DOWNLOAD_PATH_IMAGE}${image.fileName(newImageFile)}.${imageOutExtension}`;
+const imageOutFilePath = `${'../imageConverter/outputs/'}${image.fileName(newImageFile)}.${imageOutExtension}`;
 image.convertedFilePath = imageOutFilePath;
 //Gets the command to execute the desired action
 var command = image.getCommand();

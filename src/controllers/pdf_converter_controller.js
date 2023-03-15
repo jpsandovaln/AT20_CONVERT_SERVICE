@@ -2,11 +2,13 @@ const { pdfCommand } = require('../converters/pdfConverter/pdfCommand');
 const { Execute } = require('../converters/Execute');
 const { next } = require('process');
 const path = require('path');
+const fs = require('fs');
+
+
 /* A class that is used to convert audio files from one format to another */
 class PdfConverterController {
     async post(req, res) {
-        //const newFile = 'test.pdf';
-        //const outExtension = 'jpg';
+        /* Getting the parameters from the request body and the file from the request. */
         const typeTo = req.body.typeTo;
         const density = req.body.density;
         const quality = req.body.quality;
@@ -34,15 +36,37 @@ class PdfConverterController {
         //Sets the parameters of convertion
         pdf.newDensity = density;
         pdf.newQuality = quality;
+        const folderName = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}`;
+        try {
+            if (!fs.existsSync(folderName)) {
+                fs.mkdirSync(folderName);
+            }
+        } catch (err) {
+            console.error(err);
+        }
         //Creates the output path according to design
-        const outputAudiofile = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}.${ext}`;
+        const outputAudiofile = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}/${saveFileName}.${ext}`;
         pdf.convertedFilePath = outputAudiofile;
         //Gets the command to execute the desired action
         let command = pdf.getCommand();
         //Converts the input file and returns the state of the conversion
         try {
-            const response = await execute.command(command, pdf.convertedFilePath);
+            const response = await execute.command(command, folderName);
             res.send(response);
+        } catch (error) {
+            res.status(500).json({
+                ok: false,
+                msg: 'Error de servidor ' + error,
+                error: error
+            });
+        }
+    }
+
+    get(req, res) {
+        try {
+            const file = req.query;
+            const downloadFile = file.src;
+            res.zip(downloadFile); // Set disposition and send it.
         } catch (error) {
             res.status(500).json({
                 ok: false,

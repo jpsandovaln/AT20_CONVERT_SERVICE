@@ -1,14 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const fileUpload = require('express-fileupload');
 const audioConverter = require('./src/routes/audio_converter_routes.js');
 const videoConverter = require('./src/routes/video_converter_routes');
 const imageConverter = require('./src/routes/image_converter_routes');
 const pdfConverter = require('./src/routes/pdf_converter_routes');
-
+//var zip = require('express-easy-zip');
 
 const app = express();
-
+//app.use(zip());
 dotenv.config();
 /*app.use(fileUpload({
     createParentPath: true

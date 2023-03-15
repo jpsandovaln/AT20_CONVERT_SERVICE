@@ -48,5 +48,19 @@ class VideoConverterController {
             });
         }
     }
+
+    get(req, res) {
+        try {
+            const file = req.query;
+            const downloadFile = file.src;
+            res.download(downloadFile); // Set disposition and send it.
+        } catch (error) {
+            res.status(500).json({
+                ok: false,
+                msg: 'Error de servidor ' + error,
+                error: error
+            });
+        }
+    }
 }
 module.exports = VideoConverterController;

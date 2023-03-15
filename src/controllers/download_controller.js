@@ -7,12 +7,6 @@ const bodyParser = require('body-parser');
 
 /* A class that is used to convert audio files from one format to another */
 class DOWNConverterController {
-    #e;
-
-    constructor(e) {
-        this.#e = e;
-    }
-
     async post(req, res) {
         try {
             if (!req.files) {
