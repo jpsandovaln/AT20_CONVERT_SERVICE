@@ -1,4 +1,5 @@
 const { AudioCommand } = require('../converters/audioConverter/audioCommand.js');
+const { DOWNConverterController } = require('./download_controller.js');
 const { Execute } = require('../converters/Execute.js');
 const { next } = require('process');
 const path = require('path');

@@ -2,7 +2,7 @@
 const { exec } = require('child_process');
 
 class Execute {
-    command(command, outFilePath) {
+    /* command(command, outFilePath) {
         return new Promise((resolve, reject) => {
             exec(command, (error, stdout, stderr) => {
                 if (error) {
@@ -14,8 +14,8 @@ class Execute {
                 }
             });
         });
-    }
-    /* async command(command, outFilePath) {
+    }*/
+    async command(command, outFilePath) {
         return await this.convert(command, (stdout, stderr) => {
             return {stdout:'Conversion Completed',
                 outputPath: outFilePath};
@@ -33,7 +33,7 @@ class Execute {
                 resolve(callback(stdout, stderr));
             });
         });
-    }*/
+    }
 }
 
 module.exports = {

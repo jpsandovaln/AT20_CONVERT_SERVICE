@@ -18,13 +18,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
 app.listen(3000, () =>
-  console.log(`App is listening on port 3000`)
+    console.log('App is listening on port 3000')
 );
 
 /* This is the code for uploading the file to the server. */
 app.post('/upload', async (req, res) => {
     try {
-        if(!req.files) {
+        if (!req.files) {
             res.send({
                 status: false,
                 message: 'No file uploaded'
@@ -39,20 +39,21 @@ app.post('/upload', async (req, res) => {
                 data: {
                     name: file.name,
                     mimetype: file.mimetype,
-                    size: file.size
+                    size: file.size,
                 }
             });
         }
     } catch (err) {
-        res.status(500).send(err);S
+        res.status(500).send(err);
     }
 });
 
 /* Downloading the file from the server. */
 app.get('/download', function(req, res) {
-  const fileName = req.query.x;
-  const file = `${__dirname}/downloads/` + fileName;
-  res.download(file); // Set disposition and send it.
+    //const fileName = req.query.x;
+    const file = `${__dirname}/download/` + 'test.jpg';
+    console.log(__dirname);
+    res.download(file); // Set disposition and send it.
 });
 
 /* Downloading the file from the server. */
