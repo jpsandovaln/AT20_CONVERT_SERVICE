@@ -1,10 +1,26 @@
+/**
+@videoConvert.js Copyright(c) 2023 Jalasoft
+2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+All rights reserved
+This software is the confidential and proprietary information of
+Jalasoft,ConfidentialInformation"). You shall not
+disclose such Confidential Information and shall use it only in
+accordance with the terms of the license agreement you entered into
+with Jalasoft
+*/
+
+/* Importing the Command class from the Command.js file. */
 const { Command } = require('./../Command.js');
 
 class pdfCommand extends Command {
+    //Sets the density attribute to be private
     #density;
 
+    //Sets the quality attribute to be private
     #quality;
 
+    //Sets the pages attribute to be private
     #pages;
 
     /**

@@ -1,10 +1,22 @@
+/**
+@videoConvert.js Copyright(c) 2023 Jalasoft
+2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+All rights reserved
+This software is the confidential and proprietary information of
+Jalasoft,ConfidentialInformation"). You shall not
+disclose such Confidential Information and shall use it only in
+accordance with the terms of the license agreement you entered into
+with Jalasoft
+*/
+
 /* Importing the dotenv module, the pdfCommand module and the Execute module. */
 const dotenv = require('dotenv');
-const { pdfCommand } = require('./pdfConverter/pdfCommand.js');
-const { Execute } = require('./Execute.js');
+const { pdfCommand } = require('../pdfConverter/pdfCommand');
+const { Execute } = require('../Execute');
 
 /* Loading the environment variables from the .env file. */
-dotenv.config({path: __dirname + '/../../.env'});
+dotenv.config({path: __dirname + './../../../.env'});
 
 /* Just defining the input and output file names. */
 const newFile = 'test.pdf';
