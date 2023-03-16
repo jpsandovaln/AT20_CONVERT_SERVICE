@@ -1,16 +1,16 @@
 /**
-@videoConvert.js Copyright(c) 2023 Jalasoft
-2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
-All rights reserved
-This software is the confidential and proprietary information of
-Jalasoft,ConfidentialInformation"). You shall not
-disclose such Confidential Information and shall use it only in
-accordance with the terms of the license agreement you entered into
-with Jalasoft
-*/
+* @pdfCommand.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
+**/
 
-/* Importing the Command class from the Command.js file. */
+// Importing the Command class from the Command.js file. */
 const { Command } = require('./../Command.js');
 
 class pdfCommand extends Command {
@@ -25,10 +25,9 @@ class pdfCommand extends Command {
 
     /**
      * The constructor function is used to initialize the object's properties.
-     */
+     **/
     constructor() {
         super();
-        //this.#bitRate='';
         super.inputFile;
         super.convertedFilePath;
         this.#density = '';
@@ -38,10 +37,10 @@ class pdfCommand extends Command {
 
 
     /**
-     * The function takes a density value as an argument and sets the density property of the class to
+     * Sets a density value as an argument and sets the density property of the class to
      * the value of the argument
      * @param densityValue - The density value to set.
-     */
+     **/
     set newDensity(densityValue) {
         if (densityValue === undefined) {
             this.#density = '';
@@ -51,9 +50,9 @@ class pdfCommand extends Command {
     }
 
     /**
-     * The function takes a quality value and sets the quality variable to the quality value.
+     * Sets a quality value and sets the quality variable to the quality value.
      * @param qualityValue - The quality value you want to set.
-     */
+     **/
     set newQuality(qualityValue) {
         if (qualityValue === undefined) {
             this.#quality = '';
@@ -68,7 +67,7 @@ class pdfCommand extends Command {
     * rangeHigh in brackets.
     * @param rangeLow - The lowest page number in the range.
     * @param rangeHigh - The highest page number in the range.
-    */
+    **/
     newPageRange(rangeLow, rangeHigh) {
         if (rangeLow == rangeHigh) {
             this.#pages = `[${rangeHigh}]`;
@@ -82,7 +81,7 @@ class pdfCommand extends Command {
      * density and quality to the command."
      * </code>
      * @returns The command to be executed.
-     */
+     **/
     getCommand() {
         const converter = process.env.MAGICK;
         var command = `${converter} ${this.#density} ${super.inputFile}${this.#pages} ${this.#quality} ${super.convertedFilePath}`;
@@ -90,7 +89,7 @@ class pdfCommand extends Command {
     }
 }
 
-/* Exporting the pdfCommand class to be used in other files. */
+// Exporting the pdfCommand class to be used in other files.
 module.exports = {
     pdfCommand,
 };
