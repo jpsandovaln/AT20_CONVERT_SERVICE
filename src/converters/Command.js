@@ -1,13 +1,13 @@
 /*
-@Command.js Copyright(c) 2023 Jalasoft
-2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
-All rights reserved
-This software is the confidential and proprietary information of
-Jalasoft,ConfidentialInformation"). You shall not
-disclose such Confidential Information and shall use it only in
-accordance with the terms of the license agreement you entered into
-with Jalasoft
+* @Command.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
 */
 
 class Command {
@@ -30,15 +30,15 @@ class Command {
     }
 
     /**
-     * It returns the value of the private variable inputFile.
-     * @returns The inputFile property.
+     * Returns the value of the private variable inputFile.
+     * @returns {string} The inputFile property.
      */
     get inputFile() {
         return this.#inputFile;
     }
 
     /**
-    * Method to set the inputFile attribute
+    * Sets the inputFile attribute
     * @param {string} newFile - This is the file to be converted, it should be the name with its extension
     */
     set inputFile (newFile) {
@@ -46,15 +46,15 @@ class Command {
     }
 
     /**
-    * Method to set the outExtension attribute
-    *@param {string} newOutExtension - This is the extension the new file will have
+    * Sets the outExtension attribute
+    * @param {string} newOutExtension - This is the extension the new file will have
     */
     set outExtension(newOutExtension) {
         this.#outExtension = newOutExtension;
     }
 
     /**
-    * Method to set the convertedFilePath attribute
+    * Sets the convertedFilePath attribute
     * @param {string} newPath - This is the path the new file will have including the name and extension of the new file
     */
     set convertedFilePath(newPath) {
@@ -62,35 +62,15 @@ class Command {
     }
 
     /**
-     * It returns the value of the private variable convertedFilePath.
-     * @returns The convertedFilePath property.
+     * Returns the value of the private variable convertedFilePath.
+     * @returns {string} The convertedFilePath property.
      */
     get convertedFilePath () {
         return this.#convertedFilePath;
     }
 
     /**
-    * Method to get the file name of the file to be converted
-    * @param {string} newFile - This method returns the name of the file to be converted
-    * @returns The file name of the file that is being passed in.
-    */
-    fileName(newFile) {
-        var fileName = newFile.substring(0, newFile.indexOf('.'));
-        return fileName;
-    }
-    /**
-    * Method to get the input file extension of the file to be converted
-    * @param {string} newFile - This method returns the extension of the file to be converted
-    * @return The input extension
-    */
-
-    inputFileExtension(newFile) {
-        var inputExtension = newFile.slice(newFile.indexOf('.') + 1, newFile.length);
-        return inputExtension;
-    }
-
-    /**
-     * It throws an error if the function is not implemented.
+     * Throws an error if the function is not implemented.
      */
     getCommand() {
         throw new Error('Abstract class you must implement this method');
