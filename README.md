@@ -1,5 +1,22 @@
-# AT20_CONVERT_SERVICE
-
-## In Windows
-To use the video converter, it is required to download the FFMPEG tool. You can do it from the following link: https://ffmpeg.org/download.html
-After that, you need to create "thirdParties" folder in your project and put the ffmpeg.exe file there. You need to update the .env file with the absolute path of the ffmpeg.exe file and also define the output path of video converted in the .env file
+# AT20_COMPILER_SERVICE
+DEPENDENCIES FOR CONVERTERS
+download https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z
+install and modify env variables
+install imageMagick
+install ghostscript
+download https://ghostscript.com/releases/index.html
+download the first link here documentation
+https://ghostscript.com/docs/9.54.0/Install.htm
+download the General Public Release for your PC
+ubuntu
+rpm -Uvh ImageMagick-7.1.1-3.x86_64.rpm
+rpm -Uvh ImageMagick-libs-7.1.1-3.x86_64.rpm
+you can look to the page for more information
+https://imagemagick.org/script/download.php
+npm install or npm update
+download file
+$npm i --save lodash
+$npm install body-parser
+$ npm install express
+$ npm install --save multer
+$ npm install express-fileupload

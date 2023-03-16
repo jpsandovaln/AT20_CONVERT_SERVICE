@@ -1,3 +1,4 @@
 VideoConvertService/node_modules/
 VideoConvertService/convertedVideos/
 VideoConvertService/thirdParties/
+/node_modules
