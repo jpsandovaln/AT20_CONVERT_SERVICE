@@ -1,16 +1,15 @@
-/**
-@imageCommand.js Copyright(c) 2023 Jalasoft
-2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
-All rights reserved
-This software is the confidential and proprietary information of
-Jalasoft,ConfidentialInformation"). You shall not
-disclose such Confidential Information and shall use it only in
-accordance with the terms of the license agreement you entered into
-with Jalasoft
+/*
+* @imageCommand.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
 */
 
-//Imports the parent Command class
 const { Command } = require('./../Command.js');
 
 class ImageCommand extends Command {
@@ -44,7 +43,7 @@ class ImageCommand extends Command {
     }
 
     /**
-    * Method to set the with of the new file to convert
+    * Sets the with of the new file to convert
     * @param {integer} Width - This is the width that the new image will have
     */
     set newWidth(Width) {
@@ -56,7 +55,7 @@ class ImageCommand extends Command {
     }
 
     /**
-    * Method to set the height of the new file to convert
+    * Sets the height of the new file to convert
     * @param {integer} Height - This is the height that the new image will have
     */
     set newHeight(Height) {
@@ -68,7 +67,7 @@ class ImageCommand extends Command {
     }
 
     /**
-    * Method to set the type of the new file to convert
+    * Sets the type of the new file to convert
     * @param {string} type This is the type that the new image will have
     */
     set typeOfOutput(type) {
@@ -80,7 +79,7 @@ class ImageCommand extends Command {
     }
 
     /**
-    * Method to set the degrees to rotate clockwise of the new file to convert
+    * Sets the degrees to rotate clockwise of the new file to convert
     * @param {integer} degrees - This is the degrees to turn the new image clockwise
     */
     set rotateCW(degrees) {
@@ -92,8 +91,8 @@ class ImageCommand extends Command {
     }
 
     /**
-     * The function gets the command to be executed by the child process
-     * @returns The command to convert the image.
+     * Gets the command to be executed by the child process
+     * @returns {string} The command to convert the image.
      */
     getCommand() {
         const converter = process.env.MAGICK;

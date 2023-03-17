@@ -1,5 +1,5 @@
-const { AudioCommand } = require('../converters/audioConverter/audioCommand.js');
-const { Execute } = require('../converters/Execute.js');
+const { AudioCommand } = require('../service/audioConverter/audioCommand.js');
+const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 

@@ -1,5 +1,5 @@
-const { pdfCommand } = require('../converters/pdfConverter/pdfCommand');
-const { Execute } = require('../converters/Execute');
+const { pdfCommand } = require('../service/pdfConverter/pdfCommand');
+const { Execute } = require('../service/Execute');
 const { next } = require('process');
 const path = require('path');
 const fs = require('fs');
