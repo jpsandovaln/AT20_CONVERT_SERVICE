@@ -1,11 +1,34 @@
+/*
+* @video_converter_controller.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
+*/
+
 const { VideoCommand } = require('../service/videoConverter/videoCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-/* A class that is used to convert audio files from one format to another */
+
+
 class VideoConverterController {
+    /**
+     * Creates an object with the properties of the request body, creates a new instance of the
+     * VideoCommand class, sets the values of the properties of the VideoCommand class, calls the
+     * getCommand() method of the VideoCommand class, and finally calls the command() method of the
+     * Execute class.
+     * @param req - The request object.
+     * @param res - The response object.
+     * @returns The response of the command execution.
+     */
     async post(req, res) {
-        /* Creating an object with the properties of the request body. */
+        /* Getting the file from the request and the videoReq is getting the width, height, ext, and
+        aspect ratio from the request body. */
         const file = req.file;
         const videoReq = {
             width : req.body.width,
@@ -49,6 +72,13 @@ class VideoConverterController {
         }
     }
 
+    /**
+     * The function takes a request object and a response object as parameters. It then uses the
+     * request object to get the file name from the query string. It then uses the response object to
+     * download the file
+     * @param req - The request object.
+     * @param res - The response object.
+     */
     get(req, res) {
         try {
             const file = req.query;

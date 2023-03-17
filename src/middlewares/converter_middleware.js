@@ -1,5 +1,18 @@
+/*
+* @converter_middleware.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
+*/
+
 const multer = require('multer');
 const path = require('path');
+
 /* Creating a storage for the audio files. */
 const storageAudio = multer.diskStorage({
     destination: (req, file, cb) =>{
@@ -48,10 +61,10 @@ const storagePdf = multer.diskStorage({
         cb(null, fileName + '-' + uniqueSuffix + ext);
     }
 });
-/* Creating a storage for the audio, video and image files. */
+// Creating a storage for the audio, video and image files.
 const uploadAudio = multer({storage: storageAudio}).single('audio');
 const uploadVideo = multer({storage: storageVideo}).single('video');
 const uploadImage = multer({storage: storageImages}).single('image');
 const uploadPdf = multer({storage: storagePdf}).single('pdf');
-/* Exporting the functions to be used in other files. */
+
 module.exports = {uploadAudio, uploadVideo, uploadImage, uploadPdf};

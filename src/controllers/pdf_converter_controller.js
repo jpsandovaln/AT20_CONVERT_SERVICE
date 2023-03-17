@@ -1,3 +1,15 @@
+/*
+* @pdf_converter_controller.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
+*/
+
 const { pdfCommand } = require('../service/pdfConverter/pdfCommand');
 const { Execute } = require('../service/Execute');
 const { next } = require('process');
@@ -5,8 +17,14 @@ const path = require('path');
 const fs = require('fs');
 
 
-/* A class that is used to convert audio files from one format to another */
 class PdfConverterController {
+    /**
+     * It receives a PDF file, converts it to the desired format and returns the state of the
+     * conversion
+     * @param req - The request object.
+     * @param res - The response object.
+     * @returns The response of the conversion.
+     */
     async post(req, res) {
         /* Getting the parameters from the request body and the file from the request. */
         const typeTo = req.body.typeTo;
@@ -62,11 +80,29 @@ class PdfConverterController {
         }
     }
 
-    get(req, res) {
+
+    /**
+     * The function takes a request object and a response object as parameters. It then uses the
+     * request object to get the file name from the query string. It then uses the response object to
+     * download the file
+     * @param req - The request object.
+     * @param res - The response object.
+     */
+    async get(req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
-            res.zip(downloadFile); // Set disposition and send it.
+            await res.zip({
+                files: [
+                    {   content: 'pdf_image',
+                        name: `${downloadFile}`,
+                        date: new Date(),
+                        type: 'file' },
+
+                    { path: `${downloadFile}` }
+                ],
+                filename: `${downloadFile}`
+            });
         } catch (error) {
             res.status(500).json({
                 ok: false,
