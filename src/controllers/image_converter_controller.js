@@ -10,8 +10,8 @@
 * with Jalasoft
 */
 
-const { ImageCommand } = require('../converters/imageConverter/imageCommand');
-const { Execute } = require('../converters/Execute.js');
+const { ImageCommand } = require('../service/imageConverter/imageCommand');
+const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 

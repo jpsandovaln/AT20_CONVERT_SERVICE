@@ -10,8 +10,8 @@
 * with Jalasoft
 */
 
-const { VideoCommand } = require('../converters/videoConverter/videoCommand');
-const { Execute } = require('../converters/Execute.js');
+const { VideoCommand } = require('../service/videoConverter/videoCommand');
+const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 
