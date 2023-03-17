@@ -1,17 +1,15 @@
-/**
-@audioCommand.js Copyright(c) 2023 Jalasoft
-2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
-All rights reserved
-This software is the confidential and proprietary information of
-Jalasoft,ConfidentialInformation"). You shall not
-disclose such Confidential Information and shall use it only in
-accordance with the terms of the license agreement you entered into
-with Jalasoft
+/*
+* @audioCommand.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
 */
 
-
-//Imports the parent Command class
 const { Command } = require('./../Command.js');
 
 class AudioCommand extends Command {
@@ -29,10 +27,8 @@ class AudioCommand extends Command {
         this.#bitRate = '';
     }
 
-    /*
-    Method to set the new bit rate of the output file
-    */
     /**
+    * Sets the new bit rate of the output file
     * @param {integer} newBitRate - This is the bit rate of the output file
     */
     set bitRate (newBitRate) {
@@ -44,10 +40,8 @@ class AudioCommand extends Command {
     }
 
     /**
-    Method to get the audio command to run accordinng to the features added to the output file
-    */
-    /**
-    * @returns The command to be executed by the child process.
+    * Gets the audio command to run accordinng to the features added to the output file
+    * @returns {string} The command to be executed by the child process.
     */
     getCommand() {
         const converter = process.env.FFMPEG;

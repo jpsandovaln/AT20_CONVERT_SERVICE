@@ -1,5 +1,5 @@
-const { VideoCommand } = require('../converters/videoConverter/videoCommand');
-const { Execute } = require('../converters/Execute.js');
+const { VideoCommand } = require('../service/videoConverter/videoCommand');
+const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 /* A class that is used to convert audio files from one format to another */

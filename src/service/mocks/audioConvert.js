@@ -1,20 +1,22 @@
-/**
-@Execute.js Copyright(c) 2023 Jalasoft
-2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
-All rights reserved
-This software is the confidential and proprietary information of
-Jalasoft,ConfidentialInformation"). You shall not
-disclose such Confidential Information and shall use it only in
-accordance with the terms of the license agreement you entered into
-with Jalasoft
-*/
+/*
+* @audioConvert.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
+*/ 
+
 const dotenv = require('dotenv');
 const { AudioCommand } = require('../audioConverter/audioCommand.js');
 const { Execute } = require('../Execute.js');
 dotenv.config({path: __dirname + './../../../.env'});
 
 const newAudioFile = 'DigitalLove.flac';
+const newAudioFileName='DigitalLove';
 const audioOutExtension = 'flac';
 
 //Creates a new object audio for audio commands
@@ -28,7 +30,7 @@ audio.outExtension = audioOutExtension;
 //Adds command to convert the bit rate of the input file
 audio.bitRate = '96k';
 //Creates the output path according to design
-const audioOutFilePath = `${'../audioConverter/outputs/'}${audio.fileName(newAudioFile)}.${audioOutExtension}`;
+const audioOutFilePath = `${'../audioConverter/outputs/'}${newAudioFileName}.${audioOutExtension}`;
 //Sets the output path of the converted file
 audio.convertedFilePath = audioOutFilePath;
 //Gets the command to execute the desired action
