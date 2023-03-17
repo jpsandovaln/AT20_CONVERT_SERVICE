@@ -1,5 +1,5 @@
-const { ImageCommand } = require('../converters/imageConverter/imageCommand');
-const { Execute } = require('../converters/Execute.js');
+const { ImageCommand } = require('../service/imageConverter/imageCommand');
+const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 /* A class that is used to convert audio files from one format to another */
