@@ -1,31 +1,48 @@
+/*
+* @image_converter_controller.js Copyright(c) 2023 Jalasoft
+* 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+* Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
+* All rights reserved
+* This software is the confidential and proprietary information of
+* Jalasoft,ConfidentialInformation"). You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Jalasoft
+*/
+
 const { ImageCommand } = require('../converters/imageConverter/imageCommand');
 const { Execute } = require('../converters/Execute.js');
 const { next } = require('process');
 const path = require('path');
-/* A class that is used to convert audio files from one format to another */
+
 class ImageConverterController {
+    /**
+     * It receives a request with an image, and returns a converted image
+     * @param req - The request object.
+     * @param res - The response object.
+     * @returns The converted image.
+     */
     async post(req, res) {
-        /* Getting the parameters from the request body. */
+        /* Getting the image conversion options from the request body. */
         const imageReq = {
-            width : req.body.width,
-            height : req.body.height,
-            ext : req.body.ext,
-            rotate : req.body.rotate,
-            colors : req.body.colors,
+            width: req.body.width,
+            height: req.body.height,
+            ext: req.body.ext,
+            rotate: req.body.rotate,
+            colors: req.body.colors,
         };
         /* Checking if the file is being uploaded. */
         const file = req.file;
         if (!file) {
-            const error = new error('Please upload an Image');
+            const error = new Error('Please upload an image');
             return next(error);
         }
         /* Getting the extension of the file that is being uploaded. */
         const extFileName = path.parse(file.filename).ext;
-        var fileExt = extFileName.split('.').pop();
+        const fileExt = extFileName.split('.').pop();
         if (imageReq.ext === undefined) {
             imageReq.ext = fileExt;
         }
-        //const saved_ext_name = path.parse(file.filename).ext;
         const saveFileName = path.parse(file.filename).name;
         const imageConverter = new ImageCommand();
         const execute = new Execute();
@@ -41,8 +58,8 @@ class ImageConverterController {
         //Sets the degrees to rotate clock wisw CW
         imageConverter.rotateCW = imageReq.rotate;
         /* Creating the path where the converted file is going to be saved. */
-        const outputAudiofile = `${process.env.DOWNLOAD_PATH_IMAGE}/${saveFileName}.${imageReq.ext}`;
-        imageConverter.convertedFilePath = outputAudiofile;
+        const outputImageFile = `${process.env.DOWNLOAD_PATH_IMAGE}/${saveFileName}.${imageReq.ext}`;
+        imageConverter.convertedFilePath = outputImageFile;
         //Gets the command to execute the desired action
         var command = imageConverter.getCommand();
         /* Executing the command that is going to convert the image. */
@@ -58,11 +75,19 @@ class ImageConverterController {
         }
     }
 
+
+    /**
+     * The function takes a request object and a response object as parameters. It then uses the
+     * request object to get the file name from the query string. It then uses the response object to
+     * download the file
+     * @param req - The request object.
+     * @param res - The response object.
+     */
     get(req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
-            res.download(downloadFile); // Set disposition and send it.
+            res.download(downloadFile);
         } catch (error) {
             res.status(500).json({
                 ok: false,
