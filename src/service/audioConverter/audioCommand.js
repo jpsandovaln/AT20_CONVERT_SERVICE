@@ -16,6 +16,9 @@ class AudioCommand extends Command {
     //Sets the bitRate attribute to be private
     #bitRate;
 
+    //Sets the duration attribute to be private
+    #duration;
+
     constructor() {
         //Gets the contructor of the parent class to use its attributes
         super();
@@ -25,6 +28,8 @@ class AudioCommand extends Command {
         super.convertedFilePath;
         //Sets the bitRate attribute to a string with no value
         this.#bitRate = '';
+        //Sets the duration attribute to a string with no value
+        this.#duration = '';
     }
 
     /**
@@ -40,12 +45,24 @@ class AudioCommand extends Command {
     }
 
     /**
+    * Sets the duration of the output file
+    * @param {integer} duration - This is the duration of the output file in seconds
+    */
+    set duration (duration) {
+        if (duration === undefined) {
+            this.#duration = '';
+        } else {
+            this.#duration = `-t ${duration}`;
+        }
+    }
+
+    /**
     * Gets the audio command to run accordinng to the features added to the output file
     * @returns {string} The command to be executed by the child process.
     */
     getCommand() {
         const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} -y ${this.#bitRate} ${super.convertedFilePath}`;
+        var command = `${converter} -i ${super.inputFile} -y ${this.#bitRate} ${this.#duration} ${super.convertedFilePath}`;
         return command;
     }
 }
