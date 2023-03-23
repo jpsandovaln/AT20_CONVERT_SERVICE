@@ -14,7 +14,6 @@
     "body-parser": "^1.20.2",
     "child": "^0.0.3",
     "dotenv": "^16.0.3",
-    "eslint": "^8.36.0",
     "express": "^4.18.2",
     "express-easy-zip": "^1.1.5",
     "express-fileupload": "^1.4.0",
@@ -25,6 +24,11 @@
     "process": "^0.11.10"
   },
   "devDependencies": {
-    "eslint-plugin-jest": "^27.2.1"
+    "eslint": "^8.36.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1"
   }
 }
