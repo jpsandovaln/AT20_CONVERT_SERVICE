@@ -22,6 +22,12 @@ class VideoCommand extends Command {
     //Sets the aspectRatio attribute to be private
     #aspectRatio;
 
+    //Sets the duration attribute to be private
+    #duration;
+
+    //Sets the framerate attribute to be private
+    #framerate;
+
     constructor() {
         //Gets the contructor of the parent class to use its attributes
         super();
@@ -35,9 +41,13 @@ class VideoCommand extends Command {
         this.#height = '';
         //Sets the aspectRatio attribute to a string with no value
         this.#aspectRatio = '';
+        //Sets the duration attribute to a string with no value
+        this.#duration = '';
+        //Sets the framerate attribute to a string with no value
+        this.#framerate = '';
     }
 
-    /** 
+    /**
     * Sets the new width of the output file
     * @param {integer} Width - This is the width of the output file
     */
@@ -49,7 +59,7 @@ class VideoCommand extends Command {
         }
     }
 
-    /** 
+    /**
     * Sets the new heigth of the output file
     * @param {integer} Heigth - This is the heigth of the output file
     */
@@ -74,13 +84,37 @@ class VideoCommand extends Command {
     }
 
     /**
+     * Sets the duration of the input video to be converted
+     * @param {integer} duration - The duration of the input video to be converted
+     */
+    set duration(duration) {
+        if (duration === undefined) {
+            this.#duration = '';
+        } else {
+            this.#duration = `-t ${duration}`;
+        }
+    }
+
+    /**
+    * Sets the framerate of the output file
+    * @param {string} framerate This is the new framerate of the output file
+    */
+    set framerate(framerate) {
+        if (framerate === undefined) {
+            this.#framerate = '';
+        } else {
+            this.#framerate = `-r ${framerate}`;
+        }
+    }
+
+    /**
      * Gets the path to the ffmpeg executable, then creates a command string that will be
      * used to convert the video file
      * @returns {string} - The command to be executed by the child process.
      */
     getCommand() {
         const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${super.convertedFilePath}`;
+        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${this.#duration} ${this.#framerate} ${super.convertedFilePath}`;
         return command;
     }
 }

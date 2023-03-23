@@ -30,6 +30,10 @@ video.newWidth = 420;
 video.newHeight = 240;
 //Sets the aspect ratio of the output file
 video.aspectRatio = '4:3';
+//Set duration of 60 seconds
+video.duration = 60;
+// Set framerate property
+video.framerate = 30;
 //Creates the output path according to design
 const videoOutFilePath = `${'../videoConverter/outputs/'}${newVideoFileName}.${videoOutExtension}`;
 //Sets the output path of the converted file
