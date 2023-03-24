@@ -36,7 +36,9 @@ class VideoConverterController {
             ext : req.body.ext,
             aspectRatio : req.body.aspect_ratio,
             duration : req.body.duration,
-            framrate : req.body.framerate,
+            framerate : req.body.framerate,
+            autoCodec : req.body.autoCodec,
+            bitrate : req.body.bitrate,
         };
         if (!file) {
             const error = new error('Please upload an Image');
@@ -60,6 +62,8 @@ class VideoConverterController {
         videoConverter.aspectRatio = videoReq.aspectRatio;
         videoConverter.duration = videoReq.duration;
         videoConverter.newFrameRate = videoReq.frameRate;
+        videoConverter.autoCodec = videoReq.autoCodec;
+        videoConverter.bitrate = videoReq.bitrate;
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${videoReq.ext}`;
         videoConverter.convertedFilePath = outputAudiofile;
         /* Calling the getCommand() method of the VideoCommand class. */

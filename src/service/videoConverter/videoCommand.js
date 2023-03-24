@@ -28,6 +28,12 @@ class VideoCommand extends Command {
     //Sets the framerate attribute to be private
     #framerate;
 
+    //Sets the bitrate attribute to be private
+    #bitrate;
+
+    //Sets the autoCodec attribute to be private
+    #autoCodec;
+
     constructor() {
         //Gets the contructor of the parent class to use its attributes
         super();
@@ -45,6 +51,10 @@ class VideoCommand extends Command {
         this.#duration = '';
         //Sets the framerate attribute to a string with no value
         this.#framerate = '';
+        //Sets the bitrate attribute to a string with no value
+        this.#bitrate = '';
+        //Sets the autoCodec attribute to a string with no value
+        this.#autoCodec = '';
     }
 
     /**
@@ -108,13 +118,38 @@ class VideoCommand extends Command {
     }
 
     /**
+    * Sets the bitrate of the output file
+    * @param {string} bitrate This is the new bitrate of the output file
+    */
+    set bitrate(bitrate) {
+        if (bitrate === undefined) {
+            this.#bitrate = '';
+        } else {
+            this.#bitrate = `-b:v ${bitrate}`;
+        }
+    }
+
+    /**
+    * Sets the autoCodec of the output file
+    * @param {string} autoCodec This is the new autoCodec of the output file
+    */
+    set autoCodec(autoCodec) {
+        if (autoCodec === undefined) {
+            this.#autoCodec = '';
+        } else {
+            this.#autoCodec = `-c:v ${autoCodec}`;
+        }
+    }
+
+
+    /**
      * Gets the path to the ffmpeg executable, then creates a command string that will be
      * used to convert the video file
      * @returns {string} - The command to be executed by the child process.
      */
     getCommand() {
         const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${this.#duration} ${this.#framerate} ${super.convertedFilePath}`;
+        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${this.#duration} ${this.#framerate} ${this.#bitrate} ${this.#autoCodec} ${super.convertedFilePath}`;
         return command;
     }
 }

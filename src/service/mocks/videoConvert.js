@@ -34,6 +34,10 @@ video.aspectRatio = '4:3';
 video.duration = 60;
 // Set framerate property
 video.framerate = 30;
+// Set bitrate property
+video.bitrate = '1000k';
+// Set autoCodec property
+video.autoCodec = 'libx264';
 //Creates the output path according to design
 const videoOutFilePath = `${'../videoConverter/outputs/'}${newVideoFileName}.${videoOutExtension}`;
 //Sets the output path of the converted file
