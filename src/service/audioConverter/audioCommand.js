@@ -19,6 +19,9 @@ class AudioCommand extends Command {
     //Sets the duration attribute to be private
     #duration;
 
+    //Sets the codec attribute to be private
+    #codec;
+
     constructor() {
         //Gets the contructor of the parent class to use its attributes
         super();
@@ -30,6 +33,8 @@ class AudioCommand extends Command {
         this.#bitRate = '';
         //Sets the duration attribute to a string with no value
         this.#duration = '';
+        //Sets the codec attribute to a string with no value
+        this.#codec = '';
     }
 
     /**
@@ -53,6 +58,18 @@ class AudioCommand extends Command {
             this.#duration = '';
         } else {
             this.#duration = `-t ${duration}`;
+        }
+    }
+
+    /**
+    * Sets the newCodec of the output file
+    * @param {integer} newCodec - This is the newCodec of the output file in seconds
+    */
+    set codec(newCodec) {
+        if (newCodec === undefined) {
+            this.#codec = '';
+        } else {
+            this.#codec = `-c:a ${newCodec}`;
         }
     }
 

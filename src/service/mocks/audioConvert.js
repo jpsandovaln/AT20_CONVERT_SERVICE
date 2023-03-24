@@ -31,6 +31,8 @@ audio.outExtension = audioOutExtension;
 audio.bitRate = '96k';
 // set duration to 60 seconds
 audio.duration = 60;
+// set the audio codec to MP3
+audio.codec = 'libmp3lame';
 //Creates the output path according to design
 const audioOutFilePath = `${'../audioConverter/outputs/'}${newAudioFileName}.${audioOutExtension}`;
 //Sets the output path of the converted file
