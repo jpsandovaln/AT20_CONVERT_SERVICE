@@ -70,11 +70,19 @@ class PdfConverterController {
         //Converts the input file and returns the state of the conversion
         try {
             const response = await execute.command(command, folderName);
-            res.send(response);
+            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+
+            // Update the response object to include the download URL
+            const updatedResponse = {
+                stdout: response.stdout,
+                downloadUrl: downloadUrl,
+            };
+
+            res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                msg: 'Error de servidor ' + error,
+                msg: 'Server error: ' + error,
                 error: error
             });
         }

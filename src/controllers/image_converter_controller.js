@@ -65,11 +65,19 @@ class ImageConverterController {
         /* Executing the command that is going to convert the image. */
         try {
             const response = await execute.command(command, imageConverter.convertedFilePath);
-            res.send(response);
+            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputImageFile)}`;
+
+            // Update the response object to include the download URL
+            const updatedResponse = {
+                stdout: response.stdout,
+                downloadUrl: downloadUrl,
+            };
+
+            res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                msg: 'Error de servidor ' + error,
+                msg: 'Server error: ' + error,
                 error: error
             });
         }
