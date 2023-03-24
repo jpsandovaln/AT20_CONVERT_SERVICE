@@ -66,10 +66,3 @@ app.get('/download', function(req, res) {
     const file = `${__dirname}/downloads/` + fileName;
     res.download(file); // Set disposition and send it.
 });
-
-/* Downloading the file from the server. */
-/*app.get('/download', function(req, res){
-    const file = req.body.stdout;
-    res.download(file); // Set disposition and send it.
-  });
-  */
