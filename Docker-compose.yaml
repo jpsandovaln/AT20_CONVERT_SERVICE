@@ -1,0 +1,18 @@
+version: '3.9'
+services:  
+  converter:
+    image: converter_service
+    build: .
+    ports:
+      - '5000:9090'
+    environment:
+      - FFMPEG =ffmpeg
+      - MAGICK=magick
+      - UPLOADS_PATH_PDF=./src/service/pdfConverter/inputs/
+      - UPLOADS_PATH_AUDIO=./src/service/audioConverter/inputs/
+      - UPLOADS_PATH_IMAGE=./src/service/imageConverter/inputs/
+      - UPLOADS_PATH_VIDEO=./src/service/videoConverter/inputs/
+      - DOWNLOAD_PATH_AUDIO=./src/service/audioConverter/outputs/
+      - DOWNLOAD_PATH_IMAGE=./src/service/imageConverter/outputs/
+      - DOWNLOAD_PATH_VIDEO=./src/service/videoConverter/outputs/
+      - DOWNLOAD_PATH_PDF=./src/service/pdfConverter/outputs/
