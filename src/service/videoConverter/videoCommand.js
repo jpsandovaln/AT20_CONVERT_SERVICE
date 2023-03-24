@@ -35,9 +35,13 @@ class VideoCommand extends Command {
         this.#height = '';
         //Sets the aspectRatio attribute to a string with no value
         this.#aspectRatio = '';
+        //Sets the language
+        this.#language = '';
+        //Sets the asdasd
+        this.#asdasd = '';
     }
 
-    /** 
+    /**
     * Sets the new width of the output file
     * @param {integer} Width - This is the width of the output file
     */
@@ -49,7 +53,7 @@ class VideoCommand extends Command {
         }
     }
 
-    /** 
+    /**
     * Sets the new heigth of the output file
     * @param {integer} Heigth - This is the heigth of the output file
     */
