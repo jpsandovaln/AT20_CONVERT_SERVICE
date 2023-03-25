@@ -13,35 +13,35 @@
 const { Command } = require('../Command.js');
 
 class VideoCommand extends Command {
-    //Sets the width attribute to be private
+    // Sets the width attribute to be private
     #width;
 
-    //Sets the height attribute to be private
+    // Sets the height attribute to be private
     #height;
 
-    //Sets the aspectRatio attribute to be private
+    // Sets the aspectRatio attribute to be private
     #aspectRatio;
 
-    constructor() {
-        //Gets the contructor of the parent class to use its attributes
+    constructor () {
+        // Gets the contructor of the parent class to use its attributes
         super();
-        //Gets the inputFile attribute from the parent class
+        // Gets the inputFile attribute from the parent class
         super.inputFile;
-        //Gets the convertedFilePath attribute from the parent class
+        // Gets the convertedFilePath attribute from the parent class
         super.convertedFilePath;
-        //Sets the width attribute to a string with no value
+        // Sets the width attribute to a string with no value
         this.#width = '';
-        //Sets the height attribute to a string with no value
+        // Sets the height attribute to a string with no value
         this.#height = '';
-        //Sets the aspectRatio attribute to a string with no value
+        // Sets the aspectRatio attribute to a string with no value
         this.#aspectRatio = '';
     }
 
-    /** 
+    /**
     * Sets the new width of the output file
     * @param {integer} Width - This is the width of the output file
     */
-    set newWidth(Width) {
+    set newWidth (Width) {
         if (Width === undefined) {
             this.#width = '';
         } else {
@@ -49,11 +49,11 @@ class VideoCommand extends Command {
         }
     }
 
-    /** 
+    /**
     * Sets the new heigth of the output file
     * @param {integer} Heigth - This is the heigth of the output file
     */
-    set newHeight(Height) {
+    set newHeight (Height) {
         if (Height === undefined) {
             this.#height = '';
         } else {
@@ -65,7 +65,7 @@ class VideoCommand extends Command {
     * Sets the aspectRatio of the output file
     * @param {string} ratio This is the new ratio of the output file
     */
-    set aspectRatio(ratio) {
+    set aspectRatio (ratio) {
         if (ratio === undefined) {
             this.#aspectRatio = '';
         } else {
@@ -78,9 +78,9 @@ class VideoCommand extends Command {
      * used to convert the video file
      * @returns {string} - The command to be executed by the child process.
      */
-    getCommand() {
+    getCommand () {
         const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${super.convertedFilePath}`;
+        const command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${super.convertedFilePath}`;
         return command;
     }
 }
@@ -88,5 +88,5 @@ class VideoCommand extends Command {
 Exports the VideoCommand class
 */
 module.exports = {
-    VideoCommand,
+    VideoCommand
 };

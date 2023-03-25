@@ -11,8 +11,7 @@
 */
 const { exec } = require('child_process');
 
-
-/*Executes a command and returns a promise */
+/* Executes a command and returns a promise */
 class Execute {
     /**
      * Converts a file from one format to another.
@@ -21,10 +20,12 @@ class Execute {
      * @returns The return value is a promise that resolves to an object with two properties: stdout
      * and outputPath.
      */
-    async command(command, outFilePath) {
+    async command (command, outFilePath) {
         return await this.convert(command, (stdout, stderr) => {
-            return {stdout:'Conversion Completed',
-                outputPath: outFilePath};
+            return {
+                stdout: 'Conversion Completed',
+                outputPath: outFilePath
+            };
         });
     }
 
@@ -35,7 +36,7 @@ class Execute {
      * @param [callback] - A function that will be called when the command is finished.
      * @returns A promise that resolves to the result of the callback function.
      */
-    convert(command, callback = () => {}) {
+    convert (command, callback = () => {}) {
         return new Promise((resolve, reject) => {
             exec(command, (error, stdout, stderr) => {
                 if (error) {
@@ -52,5 +53,5 @@ class Execute {
 Exports the Execute class
 */
 module.exports = {
-    Execute,
+    Execute
 };

@@ -13,7 +13,7 @@ const dotenv = require('dotenv');
 const { pdfCommand } = require('../pdfConverter/pdfCommand');
 const { Execute } = require('../Execute');
 
-dotenv.config({path: __dirname + './../../../.env'});
+dotenv.config({ path: __dirname + './../../../.env' });
 
 // Define the input file name.
 const newFile = 'test.pdf';
@@ -21,9 +21,9 @@ const newFile = 'test.pdf';
 const newFileName = 'test';
 const outExtension = 'jpg';
 // Creates a new instance of the pdfCommand class.
-let pdf = new pdfCommand();
+const pdf = new pdfCommand();
 // Creates a new instance of the Execute class.
-let execute = new Execute();
+const execute = new Execute();
 // Adds the input file with its address to convert
 pdf.inputFile = `${process.env.UPLOADS_PATH_PDF}${newFile}`;
 // Adds the extension of the images output files
@@ -37,8 +37,8 @@ pdf.convertedFilePath = outFilePath;
 // Sets the page range to convert.
 pdf.newPageRange(0, 0);
 // Gets the command to execute the desired action.
-let command = pdf.getCommand();
+const command = pdf.getCommand();
 // Printing the command to the console.
 console.log(command);
-//Converts the input file and returns the state of the conversion
+// Converts the input file and returns the state of the conversion
 execute.command(command, pdf.convertedFilePath);

@@ -10,22 +10,24 @@
 * with Jalasoft
 */
 
+const CommandException = require('../common/exception/command_exception');
+
 class Command {
-    //Sets the outExtension attribute to be private
+    // Sets the outExtension attribute to be private
     #outExtension;
 
-    //Sets the convertedFilePath attribute to be private
+    // Sets the convertedFilePath attribute to be private
     #convertedFilePath;
 
-    //Sets the inputFile attribute to be private
+    // Sets the inputFile attribute to be private
     #inputFile;
 
-    constructor() {
-        //Sets the outExtension attribute a string with no value
+    constructor () {
+        // Sets the outExtension attribute a string with no value
         this.#outExtension = '';
-        //Sets the convertedFilePath attribute a string with no value
+        // Sets the convertedFilePath attribute a string with no value
         this.#convertedFilePath = '';
-        //Sets the inputFile attribute a string with no value
+        // Sets the inputFile attribute a string with no value
         this.#inputFile = '';
     }
 
@@ -33,7 +35,7 @@ class Command {
      * Returns the value of the private variable inputFile.
      * @returns {string} The inputFile property.
      */
-    get inputFile() {
+    get inputFile () {
         return this.#inputFile;
     }
 
@@ -49,7 +51,7 @@ class Command {
     * Sets the outExtension attribute
     * @param {string} newOutExtension - This is the extension the new file will have
     */
-    set outExtension(newOutExtension) {
+    set outExtension (newOutExtension) {
         this.#outExtension = newOutExtension;
     }
 
@@ -57,7 +59,7 @@ class Command {
     * Sets the convertedFilePath attribute
     * @param {string} newPath - This is the path the new file will have including the name and extension of the new file
     */
-    set convertedFilePath(newPath) {
+    set convertedFilePath (newPath) {
         this.#convertedFilePath = newPath;
     }
 
@@ -72,8 +74,8 @@ class Command {
     /**
      * Throws an error if the function is not implemented.
      */
-    getCommand() {
-        throw new Error('Abstract class you must implement this method');
+    getCommand () {
+        throw new CommandException('Abstract class you must implement this method');
     }
 }
 
@@ -81,5 +83,5 @@ class Command {
 Exports the Command class
 */
 module.exports = {
-    Command,
+    Command
 };

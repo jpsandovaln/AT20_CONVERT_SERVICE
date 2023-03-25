@@ -14,7 +14,7 @@ const { VideoCommand } = require('../service/videoConverter/videoCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-
+const ControllerException = require('../common/exception/controller_exception.js');
 
 class VideoConverterController {
     /**
@@ -26,28 +26,28 @@ class VideoConverterController {
      * @param res - The response object.
      * @returns The response of the command execution.
      */
-    async post(req, res) {
+    async post (req, res) {
         /* Getting the file from the request and the videoReq is getting the width, height, ext, and
         aspect ratio from the request body. */
         const file = req.file;
         const videoReq = {
-            width : req.body.width,
-            height : req.body.height,
-            ext : req.body.ext,
-            aspectRatio : req.body.aspect_ratio,
+            width: req.body.width,
+            height: req.body.height,
+            ext: req.body.ext,
+            aspectRatio: req.body.aspect_ratio
         };
         if (!file) {
             const error = new error('Please upload an Image');
             return next(error);
         }
         const extFileName = path.parse(file.filename).ext;
-        var fileExt = extFileName.split('.').pop();
+        const fileExt = extFileName.split('.').pop();
         if (videoReq.ext === undefined) {
             videoReq.ext = fileExt;
         }
         const saveFileName = path.parse(file.filename).name;
         /* Creating a new instance of the VideoCommand class. */
-        var videoConverter = new VideoCommand();
+        const videoConverter = new VideoCommand();
         /* Creating a new instance of the Execute class. */
         const execute = new Execute();
         /* Setting the values of the properties of the VideoCommand class. */
@@ -59,16 +59,12 @@ class VideoConverterController {
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${videoReq.ext}`;
         videoConverter.convertedFilePath = outputAudiofile;
         /* Calling the getCommand() method of the VideoCommand class. */
-        var command = videoConverter.getCommand();
+        const command = videoConverter.getCommand();
         try {
             const response = await execute.command(command, videoConverter.convertedFilePath);
             res.send(response);
         } catch (error) {
-            res.status(500).json({
-                ok: false,
-                msg: 'Error de servidor' + error,
-                error: error
-            });
+            throw new ControllerException(error.message, 500, '', 'Video');
         }
     }
 
@@ -79,17 +75,13 @@ class VideoConverterController {
      * @param req - The request object.
      * @param res - The response object.
      */
-    get(req, res) {
+    get (req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
             res.download(downloadFile); // Set disposition and send it.
         } catch (error) {
-            res.status(500).json({
-                ok: false,
-                msg: 'Error de servidor ' + error,
-                error: error
-            });
+            throw new ControllerException(error.message, 500, '', 'Video');
         }
     }
 }

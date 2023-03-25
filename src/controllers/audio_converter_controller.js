@@ -14,7 +14,7 @@ const { AudioCommand } = require('../service/audioConverter/audioCommand.js');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-
+const ControllerException = require('../common/exception/controller_exception.js');
 
 class AudioConverterController {
     /**
@@ -23,7 +23,7 @@ class AudioConverterController {
      * @param {Object} res - The response object to be sent back to the client.
      * @returns {Object} The response of the audioConverter.run function.
      */
-    async post(req, res) {
+    async post (req, res) {
         const typeTo = req.body.typeTo;
         const bitRate = req.body.bitRate;
         const file = req.file;
@@ -39,7 +39,7 @@ class AudioConverterController {
         const pathAudio = file.path;
         const extFileName = path.parse(file.filename).ext;
         let ext = typeTo;
-        let fileExt = extFileName.split('.').pop();
+        const fileExt = extFileName.split('.').pop();
 
         if (ext === undefined) {
             ext = fileExt;
@@ -61,11 +61,7 @@ class AudioConverterController {
             const response = await execute.command(command, audioConverter.convertedFilePath);
             res.send(response);
         } catch (error) {
-            res.status(500).json({
-                ok: false,
-                msg: 'Server error: ' + error,
-                error: error
-            });
+            throw new ControllerException(error.message, 500, '', 'Audio');
         }
     }
 
@@ -74,17 +70,13 @@ class AudioConverterController {
      * @param {Object} req - The request object.
      * @param {Object} res - The response object.
      */
-    get(req, res) {
+    get (req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
             res.download(downloadFile);
         } catch (error) {
-            res.status(500).json({
-                ok: false,
-                msg: 'Server error: ' + error,
-                error: error
-            });
+            throw new ControllerException(error.message, 500, '', 'Audio');
         }
     }
 }

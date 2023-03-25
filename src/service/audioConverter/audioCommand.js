@@ -13,17 +13,17 @@
 const { Command } = require('./../Command.js');
 
 class AudioCommand extends Command {
-    //Sets the bitRate attribute to be private
+    // Sets the bitRate attribute to be private
     #bitRate;
 
-    constructor() {
-        //Gets the contructor of the parent class to use its attributes
+    constructor () {
+        // Gets the contructor of the parent class to use its attributes
         super();
-        //Gets the inputFile attribute from the parent class
+        // Gets the inputFile attribute from the parent class
         super.inputFile;
-        //Gets the convertedFilePath attribute from the parent class
+        // Gets the convertedFilePath attribute from the parent class
         super.convertedFilePath;
-        //Sets the bitRate attribute to a string with no value
+        // Sets the bitRate attribute to a string with no value
         this.#bitRate = '';
     }
 
@@ -43,9 +43,9 @@ class AudioCommand extends Command {
     * Gets the audio command to run accordinng to the features added to the output file
     * @returns {string} The command to be executed by the child process.
     */
-    getCommand() {
+    getCommand () {
         const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} -y ${this.#bitRate} ${super.convertedFilePath}`;
+        const command = `${converter} -i ${super.inputFile} -y ${this.#bitRate} ${super.convertedFilePath}`;
         return command;
     }
 }
@@ -53,5 +53,5 @@ class AudioCommand extends Command {
 Exports the AudioCommand class
 */
 module.exports = {
-    AudioCommand,
+    AudioCommand
 };

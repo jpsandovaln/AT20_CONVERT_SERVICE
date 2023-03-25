@@ -15,7 +15,7 @@ const { Execute } = require('../service/Execute');
 const { next } = require('process');
 const path = require('path');
 const fs = require('fs');
-
+const ControllerException = require('../common/exception/controller_exception.js');
 
 class PdfConverterController {
     /**
@@ -25,7 +25,7 @@ class PdfConverterController {
      * @param res - The response object.
      * @returns The response of the conversion.
      */
-    async post(req, res) {
+    async post (req, res) {
         /* Getting the parameters from the request body and the file from the request. */
         const typeTo = req.body.typeTo;
         const density = req.body.density;
@@ -38,20 +38,20 @@ class PdfConverterController {
         const saveFileName = path.parse(file.filename).name;
         const pathPdf = file.path;
         const extFileName = path.parse(file.filename).ext;
-        var ext = typeTo;
-        var fileExt = extFileName.split('.').pop();
+        let ext = typeTo;
+        const fileExt = extFileName.split('.').pop();
         if (ext === undefined) {
             ext = fileExt;
         }
-        //Creates a new object audio for image commands
+        // Creates a new object audio for image commands
         const pdf = new pdfCommand();
-        //Creates an object for executing the commands that were sent
+        // Creates an object for executing the commands that were sent
         const execute = new Execute();
-        //Adds the input file with its address to convert
+        // Adds the input file with its address to convert
         pdf.inputFile = pathPdf;
-        //Adds the extension of the images output files
+        // Adds the extension of the images output files
         pdf.outExtension = ext;
-        //Sets the parameters of convertion
+        // Sets the parameters of convertion
         pdf.newDensity = density;
         pdf.newQuality = quality;
         const folderName = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}`;
@@ -60,26 +60,21 @@ class PdfConverterController {
                 fs.mkdirSync(folderName);
             }
         } catch (err) {
-            console.error(err);
+            throw new ControllerException(error.message, 500, '', 'Pdf');
         }
-        //Creates the output path according to design
+        // Creates the output path according to design
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}/${saveFileName}.${ext}`;
         pdf.convertedFilePath = outputAudiofile;
-        //Gets the command to execute the desired action
-        let command = pdf.getCommand();
-        //Converts the input file and returns the state of the conversion
+        // Gets the command to execute the desired action
+        const command = pdf.getCommand();
+        // Converts the input file and returns the state of the conversion
         try {
             const response = await execute.command(command, folderName);
             res.send(response);
         } catch (error) {
-            res.status(500).json({
-                ok: false,
-                msg: 'Error de servidor ' + error,
-                error: error
-            });
+            throw new ControllerException(error.message, 500, '', 'Pdf');
         }
     }
-
 
     /**
      * The function takes a request object and a response object as parameters. It then uses the
@@ -88,27 +83,25 @@ class PdfConverterController {
      * @param req - The request object.
      * @param res - The response object.
      */
-    async get(req, res) {
+    async get (req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
             await res.zip({
                 files: [
-                    {   content: 'pdf_image',
+                    {
+                        content: 'pdf_image',
                         name: `${downloadFile}`,
                         date: new Date(),
-                        type: 'file' },
+                        type: 'file'
+                    },
 
                     { path: `${downloadFile}` }
                 ],
                 filename: `${downloadFile}`
             });
         } catch (error) {
-            res.status(500).json({
-                ok: false,
-                msg: 'Error de servidor ' + error,
-                error: error
-            });
+            throw new ControllerException(error.message, 500, '', 'Pdf');
         }
     }
 }
