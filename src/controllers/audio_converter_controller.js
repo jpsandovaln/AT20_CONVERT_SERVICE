@@ -26,6 +26,8 @@ class AudioConverterController {
     async post(req, res) {
         const typeTo = req.body.typeTo;
         const bitRate = req.body.bitRate;
+        const duration = req.body.duration;
+        const codec = req.body.codec;
         const file = req.file;
 
         /* Check if the file is not null, otherwise return an error. */
@@ -52,6 +54,8 @@ class AudioConverterController {
         audioConverter.inputFile = pathAudio;
         audioConverter.outExtension = typeTo;
         audioConverter.bitRate = bitRate;
+        audioConverter.duration = duration;
+        audioConverter.codec = codec;
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_AUDIO}/${saveFileName}.${ext}`;
         audioConverter.convertedFilePath = outputAudiofile;
         const command = audioConverter.getCommand();
