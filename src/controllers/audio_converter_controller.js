@@ -26,6 +26,8 @@ class AudioConverterController {
     async post(req, res) {
         const typeTo = req.body.typeTo;
         const bitRate = req.body.bitRate;
+        const duration = req.body.duration;
+        const codec = req.body.codec;
         const file = req.file;
 
         /* Check if the file is not null, otherwise return an error. */
@@ -52,6 +54,8 @@ class AudioConverterController {
         audioConverter.inputFile = pathAudio;
         audioConverter.outExtension = typeTo;
         audioConverter.bitRate = bitRate;
+        audioConverter.duration = duration;
+        audioConverter.codec = codec;
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_AUDIO}/${saveFileName}.${ext}`;
         audioConverter.convertedFilePath = outputAudiofile;
         const command = audioConverter.getCommand();
@@ -59,7 +63,15 @@ class AudioConverterController {
         /* This is a promise that waits for the response of the audioConverter.run function. */
         try {
             const response = await execute.command(command, audioConverter.convertedFilePath);
-            res.send(response);
+            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+
+            // Update the response object to include the download URL
+            const updatedResponse = {
+                stdout: response.stdout,
+                downloadUrl: downloadUrl,
+            };
+
+            res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
                 ok: false,

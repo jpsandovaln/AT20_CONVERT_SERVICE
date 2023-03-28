@@ -35,6 +35,10 @@ class VideoConverterController {
             height : req.body.height,
             ext : req.body.ext,
             aspectRatio : req.body.aspect_ratio,
+            duration : req.body.duration,
+            framerate : req.body.framerate,
+            autoCodec : req.body.autoCodec,
+            bitrate : req.body.bitrate,
         };
         if (!file) {
             const error = new error('Please upload an Image');
@@ -56,17 +60,29 @@ class VideoConverterController {
         videoConverter.newWidth = videoReq.width;
         videoConverter.newHeight = videoReq.height;
         videoConverter.aspectRatio = videoReq.aspectRatio;
+        videoConverter.duration = videoReq.duration;
+        videoConverter.newFrameRate = videoReq.frameRate;
+        videoConverter.autoCodec = videoReq.autoCodec;
+        videoConverter.bitrate = videoReq.bitrate;
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${videoReq.ext}`;
         videoConverter.convertedFilePath = outputAudiofile;
         /* Calling the getCommand() method of the VideoCommand class. */
         var command = videoConverter.getCommand();
         try {
             const response = await execute.command(command, videoConverter.convertedFilePath);
-            res.send(response);
+            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+
+            // Update the response object to include the download URL
+            const updatedResponse = {
+                stdout: response.stdout,
+                downloadUrl: downloadUrl,
+            };
+
+            res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                msg: 'Error de servidor' + error,
+                msg: 'Server error: ' + error,
                 error: error
             });
         }
