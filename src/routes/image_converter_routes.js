@@ -10,12 +10,11 @@
 * with Jalasoft
 */
 
-
 const express = require('express');
 const router = express.Router();
-//Importing the ImageConverterController class from the image_converter_controller.js file.
+// Importing the ImageConverterController class from the image_converter_controller.js file.
 const ImageConverterController = require('../controllers/image_converter_controller');
-//Importing the uploadImage function from the converter_middleware.js file.
+// Importing the uploadImage function from the converter_middleware.js file.
 const { uploadImage } = require('../middlewares/converter_middleware.js');
 
 const converter = new ImageConverterController();
