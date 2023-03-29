@@ -47,10 +47,6 @@ class VideoCommand extends Command {
         this.#height = '';
         //Sets the aspectRatio attribute to a string with no value
         this.#aspectRatio = '';
-        //Sets the language
-        this.#language = '';
-        //Sets the asdasd
-        this.#asdasd = '';
         //Sets the duration attribute to a string with no value
         this.#duration = '';
         //Sets the framerate attribute to a string with no value
