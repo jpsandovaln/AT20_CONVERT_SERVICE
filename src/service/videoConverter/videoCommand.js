@@ -22,8 +22,20 @@ class VideoCommand extends Command {
     // Sets the aspectRatio attribute to be private
     #aspectRatio;
 
-    constructor () {
-        // Gets the contructor of the parent class to use its attributes
+    //Sets the duration attribute to be private
+    #duration;
+
+    //Sets the framerate attribute to be private
+    #framerate;
+
+    //Sets the bitrate attribute to be private
+    #bitrate;
+
+    //Sets the autoCodec attribute to be private
+    #autoCodec;
+
+    constructor() {
+        //Gets the contructor of the parent class to use its attributes
         super();
         // Gets the inputFile attribute from the parent class
         super.inputFile;
@@ -35,6 +47,14 @@ class VideoCommand extends Command {
         this.#height = '';
         // Sets the aspectRatio attribute to a string with no value
         this.#aspectRatio = '';
+        //Sets the duration attribute to a string with no value
+        this.#duration = '';
+        //Sets the framerate attribute to a string with no value
+        this.#framerate = '';
+        //Sets the bitrate attribute to a string with no value
+        this.#bitrate = '';
+        //Sets the autoCodec attribute to a string with no value
+        this.#autoCodec = '';
     }
 
     /**
@@ -74,13 +94,62 @@ class VideoCommand extends Command {
     }
 
     /**
+     * Sets the duration of the input video to be converted
+     * @param {integer} duration - The duration of the input video to be converted
+     */
+    set duration(duration) {
+        if (duration === undefined) {
+            this.#duration = '';
+        } else {
+            this.#duration = `-t ${duration}`;
+        }
+    }
+
+    /**
+    * Sets the framerate of the output file
+    * @param {string} framerate This is the new framerate of the output file
+    */
+    set framerate(framerate) {
+        if (framerate === undefined) {
+            this.#framerate = '';
+        } else {
+            this.#framerate = `-r ${framerate}`;
+        }
+    }
+
+    /**
+    * Sets the bitrate of the output file
+    * @param {string} bitrate This is the new bitrate of the output file
+    */
+    set bitrate(bitrate) {
+        if (bitrate === undefined) {
+            this.#bitrate = '';
+        } else {
+            this.#bitrate = `-b:v ${bitrate}`;
+        }
+    }
+
+    /**
+    * Sets the autoCodec of the output file
+    * @param {string} autoCodec This is the new autoCodec of the output file
+    */
+    set autoCodec(autoCodec) {
+        if (autoCodec === undefined) {
+            this.#autoCodec = '';
+        } else {
+            this.#autoCodec = `-c:v ${autoCodec}`;
+        }
+    }
+
+
+    /**
      * Gets the path to the ffmpeg executable, then creates a command string that will be
      * used to convert the video file
      * @returns {string} - The command to be executed by the child process.
      */
     getCommand () {
         const converter = process.env.FFMPEG;
-        const command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${super.convertedFilePath}`;
+        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${this.#duration} ${this.#framerate} ${this.#bitrate} ${this.#autoCodec} ${super.convertedFilePath}`;
         return command;
     }
 }

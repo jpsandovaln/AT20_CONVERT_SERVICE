@@ -59,8 +59,8 @@ class PdfConverterController {
             if (!fs.existsSync(folderName)) {
                 fs.mkdirSync(folderName);
             }
-        } catch (err) {
-            throw new ControllerException(error.message, 500, '', 'Pdf');
+        } catch (error) {
+            throw new ControllerException(error.message, '', '', 'Pdf');
         }
         // Creates the output path according to design
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}/${saveFileName}.${ext}`;
@@ -70,9 +70,21 @@ class PdfConverterController {
         // Converts the input file and returns the state of the conversion
         try {
             const response = await execute.command(command, folderName);
-            res.send(response);
+            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+
+            // Update the response object to include the download URL
+            const updatedResponse = {
+                stdout: response.stdout,
+                downloadUrl: downloadUrl,
+            };
+
+            res.send(updatedResponse);
         } catch (error) {
-            throw new ControllerException(error.message, 500, '', 'Pdf');
+            res.status(500).json({
+                ok: false,
+                msg: 'Server error: ' + error,
+                error: error
+            });
         }
     }
 
@@ -101,7 +113,11 @@ class PdfConverterController {
                 filename: `${downloadFile}`
             });
         } catch (error) {
-            throw new ControllerException(error.message, 500, '', 'Pdf');
+            res.status(500).json({
+                ok: false,
+                msg: 'Error de servidor ' + error,
+                error: error
+            });
         }
     }
 }

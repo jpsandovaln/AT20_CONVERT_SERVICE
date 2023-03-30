@@ -14,7 +14,6 @@ const { ImageCommand } = require('../service/imageConverter/imageCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-const ControllerException = require('../common/exception/controller_exception.js');
 
 class ImageConverterController {
     /**
@@ -66,9 +65,21 @@ class ImageConverterController {
         /* Executing the command that is going to convert the image. */
         try {
             const response = await execute.command(command, imageConverter.convertedFilePath);
-            res.send(response);
+            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputImageFile)}`;
+
+            // Update the response object to include the download URL
+            const updatedResponse = {
+                stdout: response.stdout,
+                downloadUrl: downloadUrl,
+            };
+
+            res.send(updatedResponse);
         } catch (error) {
-            throw new ControllerException(error.message, 500, '', 'Image');
+            res.status(500).json({
+                ok: false,
+                msg: 'Server error: ' + error,
+                error: error
+            });
         }
     }
 
@@ -85,7 +96,11 @@ class ImageConverterController {
             const downloadFile = file.src;
             res.download(downloadFile);
         } catch (error) {
-            throw new ControllerException(error.message, 500, '', 'Image');
+            res.status(500).json({
+                ok: false,
+                msg: 'Error de servidor ' + error,
+                error: error
+            });
         }
     }
 }
