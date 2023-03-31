@@ -15,7 +15,7 @@ const express = require('express');
 // Used to load environment variables from a .env file into process.env.
 const dotenv = require('dotenv');
 // Importing the audio_converter_routes.js file.
-const audioConverter = require('./src/routes/audio_converter_routes.js');
+const audioConverter = require('./src/routes/audio_converter_routes.ts');//modify los .ts
 // Importing the video_converter_routes.js file.
 const videoConverter = require('./src/routes/video_converter_routes');
 // Importing the image_converter_routes.js file.
@@ -38,5 +38,5 @@ app.use('/api/v1.0/convert_pdf', pdfConverter);
 const PORT = process.env.PORT || 9090;
 // Used to start the server.
 app.listen(PORT, () => {
-    // console.info(`Server running on port ${PORT}`);
+    console.info(`Server running on port ${PORT}`);
 });

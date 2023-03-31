@@ -9,13 +9,13 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
+export{};
 const express = require('express');
 const router = express.Router();
 // This is importing the AudioConverterController class from the audio_converter_controller.js file.
-const AudioConverterController = require('../controllers/audio_converter_controller.js');
+const AudioConverterController = require('../controllers/audio_converter_controller.ts');
 // This is importing the uploadAudio function from the converter_middleware.js file.
-const { uploadAudio } = require('../middlewares/converter_middleware.js');
+const { uploadAudio } = require('../middlewares/converter_middleware.ts');
 
 // Creating a new instance of the AudioConverterController class.
 const converter = new AudioConverterController();

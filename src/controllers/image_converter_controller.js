@@ -29,7 +29,7 @@ class ImageConverterController {
             height: req.body.height,
             ext: req.body.ext,
             rotate: req.body.rotate,
-            colors: req.body.colors,
+            colors: req.body.colors
         };
         /* Checking if the file is being uploaded. */
         const file = req.file;
@@ -46,22 +46,22 @@ class ImageConverterController {
         const saveFileName = path.parse(file.filename).name;
         const imageConverter = new ImageCommand();
         const execute = new Execute();
-        //Adds the input file with its address to convert
+        // Adds the input file with its address to convert
         imageConverter.inputFile = file.path;
-        //Adds the extension of the wanted output file
+        // Adds the extension of the wanted output file
         imageConverter.outExtension = imageReq.ext;
-        //Sets the dimensions of the output file
+        // Sets the dimensions of the output file
         imageConverter.newWidth = imageReq.width;
         imageConverter.newHeight = imageReq.height;
-        //Sets the type of the output file
+        // Sets the type of the output file
         imageConverter.typeOfOutput = imageReq.colors;
-        //Sets the degrees to rotate clock wisw CW
+        // Sets the degrees to rotate clock wisw CW
         imageConverter.rotateCW = imageReq.rotate;
         /* Creating the path where the converted file is going to be saved. */
         const outputImageFile = `${process.env.DOWNLOAD_PATH_IMAGE}/${saveFileName}.${imageReq.ext}`;
         imageConverter.convertedFilePath = outputImageFile;
-        //Gets the command to execute the desired action
-        var command = imageConverter.getCommand();
+        // Gets the command to execute the desired action
+        const command = imageConverter.getCommand();
         /* Executing the command that is going to convert the image. */
         try {
             const response = await execute.command(command, imageConverter.convertedFilePath);
@@ -70,7 +70,7 @@ class ImageConverterController {
             // Update the response object to include the download URL
             const updatedResponse = {
                 stdout: response.stdout,
-                downloadUrl: downloadUrl,
+                downloadUrl
             };
 
             res.send(updatedResponse);
@@ -78,11 +78,10 @@ class ImageConverterController {
             res.status(500).json({
                 ok: false,
                 msg: 'Server error: ' + error,
-                error: error
+                error
             });
         }
     }
-
 
     /**
      * The function takes a request object and a response object as parameters. It then uses the
@@ -100,7 +99,7 @@ class ImageConverterController {
             res.status(500).json({
                 ok: false,
                 msg: 'Error de servidor ' + error,
-                error: error
+                error
             });
         }
     }
