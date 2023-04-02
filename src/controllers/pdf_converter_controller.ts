@@ -9,7 +9,7 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
+export{};
 const { pdfCommand } = require('../service/pdfConverter/pdfCommand');
 const { Execute } = require('../service/Execute');
 const { next } = require('process');
@@ -32,7 +32,7 @@ class PdfConverterController {
         const quality = req.body.quality;
         const file = req.file;
         if (!file) {
-            const error = new error('Please upload a PDF');
+            const error = new Error('Please upload a PDF');
             return next(error);
         }
         const saveFileName = path.parse(file.filename).name;
@@ -70,7 +70,7 @@ class PdfConverterController {
         //Converts the input file and returns the state of the conversion
         try {
             const response = await execute.command(command, folderName);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_pdf/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
@@ -114,7 +114,7 @@ class PdfConverterController {
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                msg: 'Error de servidor ' + error,
+                msg: 'Server error' + error,
                 error: error
             });
         }

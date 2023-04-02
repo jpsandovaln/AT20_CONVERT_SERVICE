@@ -1,5 +1,5 @@
 /*
-* @video_converter_routes.js Copyright(c) 2023 Jalasoft
+* @pdf_converter_routes.js Copyright(c) 2023 Jalasoft
 * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 * Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
 * All rights reserved
@@ -9,19 +9,17 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
-
+export{};
 const express = require('express');
 const router = express.Router();
-// Importing the video_converter_controller.js file.
-const VideoConverterController = require('../controllers/video_converter_controller');
-// Importing the uploadVideo function from the converter_middleware.js file.
-const { uploadVideo } = require('../middlewares/converter_middleware.js');
+// Importing the `PdfConverterController` class from the `pdf_converter_controller.js` file.
+const PdfConverterController = require('../controllers/pdf_converter_controller');
+// Importing the `uploadPdf` function from the `converter_middleware.js` file.
+const { uploadPdf } = require('../middlewares/converter_middleware');
 
-// Creating a new instance of the VideoConverterController class.
-const converter = new VideoConverterController();
+const converter = new PdfConverterController();
 // A route that is being defined.
-router.post('/converter', uploadVideo, converter.post);
+router.post('/converter', uploadPdf, converter.post);
 // This is a route that will be used to download the converted file.
 router.get('/download', converter.get);
 module.exports = router;

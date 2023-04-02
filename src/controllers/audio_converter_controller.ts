@@ -63,7 +63,7 @@ class AudioConverterController {
         /* This is a promise that waits for the response of the audioConverter.run function. */
         try {
             const response = await execute.command(command, audioConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_audio/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {

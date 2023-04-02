@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /*
 * @server.js Copyright(c) 2023 Jalasoft
 * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -15,7 +15,7 @@ const express = require('express');
 // Used to load environment variables from a .env file into process.env.
 const dotenv = require('dotenv');
 // Importing the audio_converter_routes.js file.
-const audioConverter = require('./src/routes/audio_converter_routes.ts');
+const audioConverter = require('./src/routes/audio_converter_routes');
 // Importing the video_converter_routes.js file.
 const videoConverter = require('./src/routes/video_converter_routes');
 // Importing the image_converter_routes.js file.

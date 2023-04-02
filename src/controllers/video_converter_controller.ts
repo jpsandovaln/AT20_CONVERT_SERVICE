@@ -9,7 +9,7 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
+export{};
 const { VideoCommand } = require('../service/videoConverter/videoCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
@@ -36,12 +36,12 @@ class VideoConverterController {
             ext : req.body.ext,
             aspectRatio : req.body.aspect_ratio,
             duration : req.body.duration,
-            framerate : req.body.framerate,
+            frameRate : req.body.framerate,
             autoCodec : req.body.autoCodec,
             bitrate : req.body.bitrate,
         };
         if (!file) {
-            const error = new error('Please upload an Image');
+            const error = new Error('Please upload an Image');
             return next(error);
         }
         const extFileName = path.parse(file.filename).ext;
@@ -70,7 +70,7 @@ class VideoConverterController {
         var command = videoConverter.getCommand();
         try {
             const response = await execute.command(command, videoConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_video/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
@@ -103,7 +103,7 @@ class VideoConverterController {
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                msg: 'Error de servidor ' + error,
+                msg: 'Server error ' + error,
                 error: error
             });
         }

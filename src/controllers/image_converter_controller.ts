@@ -9,7 +9,7 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
+export{};
 const { ImageCommand } = require('../service/imageConverter/imageCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
@@ -65,7 +65,7 @@ class ImageConverterController {
         /* Executing the command that is going to convert the image. */
         try {
             const response = await execute.command(command, imageConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputImageFile)}`;
+            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_image/download?src=${encodeURIComponent(outputImageFile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
