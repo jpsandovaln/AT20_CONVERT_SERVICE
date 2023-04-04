@@ -24,11 +24,11 @@ class AudioConverterController {
      * @returns {Object} The response of the audioConverter.run function.
      */
     async post(req, res) {
-        const typeTo = req.body.typeTo;
-        const bitRate = req.body.bitRate;
-        const duration = req.body.duration;
-        const codec = req.body.codec;
-        const file = req.file;
+        const typeTo:string = req.body.typeTo;
+        const bitRate:string = req.body.bitRate;
+        const duration:number = req.body.duration;
+        const codec:string = req.body.codec;
+        const file:any = req.file;
 
         /* Check if the file is not null, otherwise return an error. */
         if (!file) {

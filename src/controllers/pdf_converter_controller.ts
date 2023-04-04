@@ -27,10 +27,10 @@ class PdfConverterController {
      */
     async post(req, res) {
         /* Getting the parameters from the request body and the file from the request. */
-        const typeTo = req.body.typeTo;
-        const density = req.body.density;
-        const quality = req.body.quality;
-        const file = req.file;
+        const typeTo:string = req.body.typeTo;
+        const density:number = req.body.density;
+        const quality:number = req.body.quality;
+        const file:any = req.file;
         if (!file) {
             const error = new Error('Please upload a PDF');
             return next(error);

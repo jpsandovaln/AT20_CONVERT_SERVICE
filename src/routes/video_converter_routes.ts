@@ -13,9 +13,9 @@
 export{};
 const express = require('express');
 const router = express.Router();
-// Importing the video_converter_controller.js file.
+// Importing the video_converter_controller.ts file.
 const VideoConverterController = require('../controllers/video_converter_controller');
-// Importing the uploadVideo function from the converter_middleware.js file.
+// Importing the uploadVideo function from the converter_middleware.ts file.
 const { uploadVideo } = require('../middlewares/converter_middleware');
 
 // Creating a new instance of the VideoConverterController class.
