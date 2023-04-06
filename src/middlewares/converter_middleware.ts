@@ -19,9 +19,9 @@ const storageAudio = multer.diskStorage({
         cb(null, process.env.UPLOADS_PATH_AUDIO);
     },
     filename: (_req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        const fileName = path.basename(file.originalname, ext);
+        const uniqueSuffix:string = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const ext:any = path.extname(file.originalname);
+        const fileName:any = path.basename(file.originalname, ext);
         cb(null, fileName + '-' + uniqueSuffix + ext);
     }
 });

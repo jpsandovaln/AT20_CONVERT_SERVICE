@@ -23,7 +23,7 @@ class AudioConverterController {
      * @param {Object} res - The response object to be sent back to the client.
      * @returns {Object} The response of the audioConverter.run function.
      */
-    async post(req, res) {
+    async post(req, res ) {
         const typeTo:string = req.body.typeTo;
         const bitRate:string = req.body.bitRate;
         const duration:number = req.body.duration;
@@ -37,11 +37,11 @@ class AudioConverterController {
         }
 
         /* Get the name of the file that will be converted. */
-        const saveFileName = path.parse(file.filename).name;
-        const pathAudio = file.path;
-        const extFileName = path.parse(file.filename).ext;
-        let ext = typeTo;
-        let fileExt = extFileName.split('.').pop();
+        const saveFileName:string = path.parse(file.filename).name;
+        const pathAudio:string = file.path;
+        const extFileName:string = path.parse(file.filename).ext;
+        let ext:string = typeTo;
+        let fileExt:any = extFileName.split('.').pop();
 
         if (ext === undefined) {
             ext = fileExt;
@@ -56,14 +56,14 @@ class AudioConverterController {
         audioConverter.bitRate = bitRate;
         audioConverter.duration = duration;
         audioConverter.codec = codec;
-        const outputAudiofile = `${process.env.DOWNLOAD_PATH_AUDIO}/${saveFileName}.${ext}`;
+        const outputAudiofile:string = `${process.env.DOWNLOAD_PATH_AUDIO}/${saveFileName}.${ext}`;
         audioConverter.convertedFilePath = outputAudiofile;
         const command = audioConverter.getCommand();
 
         /* This is a promise that waits for the response of the audioConverter.run function. */
         try {
-            const response = await execute.command(command, audioConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_audio/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const response:any = await execute.command(command, audioConverter.convertedFilePath);
+            const downloadUrl:string = `${req.protocol}://${req.get('host')}/api/v1.0/convert_audio/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
@@ -88,8 +88,8 @@ class AudioConverterController {
      */
     get(req, res) {
         try {
-            const file = req.query;
-            const downloadFile = file.src;
+            const file:any = req.query;
+            const downloadFile:any = file.src;
             res.download(downloadFile);
         } catch (error) {
             res.status(500).json({

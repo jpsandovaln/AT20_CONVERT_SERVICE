@@ -14,13 +14,13 @@
 const express = require('express');
 // Used to load environment variables from a .env file into process.env.
 const dotenv = require('dotenv');
-// Importing the audio_converter_routes.js file.
+// Importing the audio_converter_routes.ts file.
 const audioConverter = require('./src/routes/audio_converter_routes');
-// Importing the video_converter_routes.js file.
+// Importing the video_converter_routes.ts file.
 const videoConverter = require('./src/routes/video_converter_routes');
-// Importing the image_converter_routes.js file.
+// Importing the image_converter_routes.ts file.
 const imageConverter = require('./src/routes/image_converter_routes');
-// Importing the pdf_converter_routes.js file.
+// Importing the pdf_converter_routes.ts file.
 const pdfConverter = require('./src/routes/pdf_converter_routes');
 // Used to zip the files.
 const zip = require('express-easy-zip');

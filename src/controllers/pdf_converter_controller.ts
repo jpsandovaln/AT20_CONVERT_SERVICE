@@ -35,11 +35,11 @@ class PdfConverterController {
             const error = new Error('Please upload a PDF');
             return next(error);
         }
-        const saveFileName = path.parse(file.filename).name;
-        const pathPdf = file.path;
-        const extFileName = path.parse(file.filename).ext;
-        var ext = typeTo;
-        var fileExt = extFileName.split('.').pop();
+        const saveFileName:string = path.parse(file.filename).name;
+        const pathPdf:string = file.path;
+        const extFileName:string = path.parse(file.filename).ext;
+        let ext:string = typeTo;
+        let fileExt:any = extFileName.split('.').pop();
         if (ext === undefined) {
             ext = fileExt;
         }
@@ -54,7 +54,7 @@ class PdfConverterController {
         //Sets the parameters of convertion
         pdf.newDensity = density;
         pdf.newQuality = quality;
-        const folderName = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}`;
+        const folderName:string = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}`;
         try {
             if (!fs.existsSync(folderName)) {
                 fs.mkdirSync(folderName);
@@ -63,14 +63,14 @@ class PdfConverterController {
             console.error(err);
         }
         //Creates the output path according to design
-        const outputAudiofile = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}/${saveFileName}.${ext}`;
+        const outputAudiofile:string = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}/${saveFileName}.${ext}`;
         pdf.convertedFilePath = outputAudiofile;
         //Gets the command to execute the desired action
-        let command = pdf.getCommand();
+        const command = pdf.getCommand();
         //Converts the input file and returns the state of the conversion
         try {
-            const response = await execute.command(command, folderName);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_pdf/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const response:any = await execute.command(command, folderName);
+            const downloadUrl:string = `${req.protocol}://${req.get('host')}/api/v1.0/convert_pdf/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
@@ -98,8 +98,8 @@ class PdfConverterController {
      */
     async get(req, res) {
         try {
-            const file = req.query;
-            const downloadFile = file.src;
+            const file:any = req.query;
+            const downloadFile:any = file.src;
             await res.zip({
                 files: [
                     {   content: 'pdf_image',
