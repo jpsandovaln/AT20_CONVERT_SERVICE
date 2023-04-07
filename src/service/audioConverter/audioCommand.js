@@ -13,27 +13,27 @@
 const { Command } = require('./../Command.js');
 
 class AudioCommand extends Command {
-    //Sets the bitRate attribute to be private
+    // Sets the bitRate attribute to be private
     #bitRate;
 
-    //Sets the duration attribute to be private
+    // Sets the duration attribute to be private
     #duration;
 
-    //Sets the codec attribute to be private
+    // Sets the codec attribute to be private
     #codec;
 
-    constructor() {
-        //Gets the contructor of the parent class to use its attributes
+    constructor () {
+        // Gets the contructor of the parent class to use its attributes
         super();
-        //Gets the inputFile attribute from the parent class
+        // Gets the inputFile attribute from the parent class
         super.inputFile;
-        //Gets the convertedFilePath attribute from the parent class
+        // Gets the convertedFilePath attribute from the parent class
         super.convertedFilePath;
-        //Sets the bitRate attribute to a string with no value
+        // Sets the bitRate attribute to a string with no value
         this.#bitRate = '';
-        //Sets the duration attribute to a string with no value
+        // Sets the duration attribute to a string with no value
         this.#duration = '';
-        //Sets the codec attribute to a string with no value
+        // Sets the codec attribute to a string with no value
         this.#codec = '';
     }
 
@@ -42,7 +42,7 @@ class AudioCommand extends Command {
     * @param {integer} newBitRate - This is the bit rate of the output file
     */
     set bitRate (newBitRate) {
-        if (newBitRate === undefined) {
+        if (newBitRate === undefined || newBitRate === '') {
             this.#bitRate = '';
         } else {
             this.#bitRate = `-b:a ${newBitRate}`;
@@ -54,7 +54,7 @@ class AudioCommand extends Command {
     * @param {integer} duration - This is the duration of the output file in seconds
     */
     set duration (duration) {
-        if (duration === undefined) {
+        if (duration === undefined || duration === '') {
             this.#duration = '';
         } else {
             this.#duration = `-t ${duration}`;
@@ -65,8 +65,8 @@ class AudioCommand extends Command {
     * Sets the newCodec of the output file
     * @param {integer} newCodec - This is the newCodec of the output file in seconds
     */
-    set codec(newCodec) {
-        if (newCodec === undefined) {
+    set codec (newCodec) {
+        if (newCodec === undefined || newCodec === '') {
             this.#codec = '';
         } else {
             this.#codec = `-c:a ${newCodec}`;
@@ -77,9 +77,9 @@ class AudioCommand extends Command {
     * Gets the audio command to run accordinng to the features added to the output file
     * @returns {string} The command to be executed by the child process.
     */
-    getCommand() {
+    getCommand () {
         const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} -y ${this.#bitRate} ${this.#duration} ${super.convertedFilePath}`;
+        const command = `${converter} -i ${super.inputFile} -y ${this.#bitRate} ${this.#duration} ${super.convertedFilePath}`;
         return command;
     }
 }
@@ -87,5 +87,5 @@ class AudioCommand extends Command {
 Exports the AudioCommand class
 */
 module.exports = {
-    AudioCommand,
+    AudioCommand
 };

@@ -15,7 +15,6 @@ const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 
-
 class VideoConverterController {
     /**
      * Creates an object with the properties of the request body, creates a new instance of the
@@ -26,32 +25,32 @@ class VideoConverterController {
      * @param res - The response object.
      * @returns The response of the command execution.
      */
-    async post(req, res) {
+    async post (req, res) {
         /* Getting the file from the request and the videoReq is getting the width, height, ext, and
         aspect ratio from the request body. */
         const file = req.file;
         const videoReq = {
-            width : req.body.width,
-            height : req.body.height,
-            ext : req.body.ext,
-            aspectRatio : req.body.aspect_ratio,
-            duration : req.body.duration,
-            framerate : req.body.framerate,
-            autoCodec : req.body.autoCodec,
-            bitrate : req.body.bitrate,
+            width: req.body.width,
+            height: req.body.height,
+            ext: req.body.ext,
+            aspectRatio: req.body.aspectratio,
+            duration: req.body.duration,
+            framerate: req.body.framerate,
+            autoCodec: req.body.autoCodec,
+            bitrate: req.body.bitrate
         };
         if (!file) {
-            const error = new error('Please upload an Image');
+            const error = new Error('Please upload an Image');
             return next(error);
         }
         const extFileName = path.parse(file.filename).ext;
-        var fileExt = extFileName.split('.').pop();
+        const fileExt = extFileName.split('.').pop();
         if (videoReq.ext === undefined) {
             videoReq.ext = fileExt;
         }
         const saveFileName = path.parse(file.filename).name;
         /* Creating a new instance of the VideoCommand class. */
-        var videoConverter = new VideoCommand();
+        const videoConverter = new VideoCommand();
         /* Creating a new instance of the Execute class. */
         const execute = new Execute();
         /* Setting the values of the properties of the VideoCommand class. */
@@ -67,15 +66,15 @@ class VideoConverterController {
         const outputAudiofile = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${videoReq.ext}`;
         videoConverter.convertedFilePath = outputAudiofile;
         /* Calling the getCommand() method of the VideoCommand class. */
-        var command = videoConverter.getCommand();
+        const command = videoConverter.getCommand();
         try {
             const response = await execute.command(command, videoConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_video/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
                 stdout: response.stdout,
-                downloadUrl: downloadUrl,
+                downloadUrl
             };
 
             res.send(updatedResponse);
@@ -83,7 +82,7 @@ class VideoConverterController {
             res.status(500).json({
                 ok: false,
                 msg: 'Server error: ' + error,
-                error: error
+                error
             });
         }
     }
@@ -95,7 +94,7 @@ class VideoConverterController {
      * @param req - The request object.
      * @param res - The response object.
      */
-    get(req, res) {
+    get (req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
@@ -104,7 +103,7 @@ class VideoConverterController {
             res.status(500).json({
                 ok: false,
                 msg: 'Error de servidor ' + error,
-                error: error
+                error
             });
         }
     }

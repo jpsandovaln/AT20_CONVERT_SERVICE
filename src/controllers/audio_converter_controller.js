@@ -15,7 +15,6 @@ const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
 
-
 class AudioConverterController {
     /**
      * Receives a file and converts it to the specified audio format.
@@ -23,7 +22,7 @@ class AudioConverterController {
      * @param {Object} res - The response object to be sent back to the client.
      * @returns {Object} The response of the audioConverter.run function.
      */
-    async post(req, res) {
+    async post (req, res) {
         const typeTo = req.body.typeTo;
         const bitRate = req.body.bitRate;
         const duration = req.body.duration;
@@ -41,7 +40,7 @@ class AudioConverterController {
         const pathAudio = file.path;
         const extFileName = path.parse(file.filename).ext;
         let ext = typeTo;
-        let fileExt = extFileName.split('.').pop();
+        const fileExt = extFileName.split('.').pop();
 
         if (ext === undefined) {
             ext = fileExt;
@@ -63,12 +62,12 @@ class AudioConverterController {
         /* This is a promise that waits for the response of the audioConverter.run function. */
         try {
             const response = await execute.command(command, audioConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const downloadUrl = `${req.protocol}://${req.get('host')}/api/v1.0/convert_audio/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
                 stdout: response.stdout,
-                downloadUrl: downloadUrl,
+                downloadUrl
             };
 
             res.send(updatedResponse);
@@ -76,7 +75,7 @@ class AudioConverterController {
             res.status(500).json({
                 ok: false,
                 msg: 'Server error: ' + error,
-                error: error
+                error
             });
         }
     }
@@ -86,7 +85,7 @@ class AudioConverterController {
      * @param {Object} req - The request object.
      * @param {Object} res - The response object.
      */
-    get(req, res) {
+    get (req, res) {
         try {
             const file = req.query;
             const downloadFile = file.src;
@@ -95,7 +94,7 @@ class AudioConverterController {
             res.status(500).json({
                 ok: false,
                 msg: 'Server error: ' + error,
-                error: error
+                error
             });
         }
     }
