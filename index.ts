@@ -12,6 +12,8 @@
 
 // Importing the express module.
 const express = require('express');
+// Importing cors module.
+const cors = require('cors');
 // Used to load environment variables from a .env file into process.env.
 const dotenv = require('dotenv');
 // Importing the audio_converter_routes.ts file.
@@ -28,6 +30,7 @@ const zip = require('express-easy-zip');
 const app = express();
 app.use(zip());
 dotenv.config();
+app.use(cors());
 
 /* A middleware that is used to route the request to the appropriate route. */
 app.use('/api/v1.0/convert_audio', audioConverter);
