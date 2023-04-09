@@ -13,51 +13,51 @@ export{};
 const multer = require('multer');
 const path = require('path');
 
-/* Creating a storage for the audio files. */
+// Creating a storage for the audio files.
 const storageAudio = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, process.env.UPLOADS_PATH_AUDIO);
     },
     filename: (_req, file, cb) => {
         const uniqueSuffix:string = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext:any = path.extname(file.originalname);
-        const fileName:any = path.basename(file.originalname, ext);
+        const ext:string = path.extname(file.originalname);
+        const fileName:string = path.basename(file.originalname, ext);
         cb(null, fileName + '-' + uniqueSuffix + ext);
     }
 });
-/* Creating a storage for the video files. */
+// Creating a storage for the video files.
 const storageVideo = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, process.env.UPLOADS_PATH_VIDEO);
     },
     filename: (_req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        const fileName = path.basename(file.originalname, ext);
+        const uniqueSuffix:string = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const ext:string = path.extname(file.originalname);
+        const fileName:string = path.basename(file.originalname, ext);
         cb(null, fileName + '-' + uniqueSuffix + ext);
     }
 });
-/* Creating a storage for the image files. */
+// Creating a storage for the image files.
 const storageImages = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, process.env.UPLOADS_PATH_IMAGE);
     },
     filename: (_req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        const fileName = path.basename(file.originalname, ext);
+        const uniqueSuffix:string = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const ext:string = path.extname(file.originalname);
+        const fileName:string = path.basename(file.originalname, ext);
         cb(null, fileName + '-' + uniqueSuffix + ext);
     }
 });
-/* Creating a storage for the pdf files. */
+// Creating a storage for the pdf files.
 const storagePdf = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, process.env.UPLOADS_PATH_PDF);
     },
     filename: (_req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        const fileName = path.basename(file.originalname, ext);
+        const uniqueSuffix:string = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const ext:string = path.extname(file.originalname);
+        const fileName:string = path.basename(file.originalname, ext);
         cb(null, fileName + '-' + uniqueSuffix + ext);
     }
 });

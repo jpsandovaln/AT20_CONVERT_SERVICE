@@ -14,8 +14,6 @@ const { VideoCommand } = require('../service/videoConverter/videoCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-
-
 class VideoConverterController {
     /**
      * Creates an object with the properties of the request body, creates a new instance of the
@@ -32,7 +30,7 @@ class VideoConverterController {
         const file:any = req.file;
         const width:number = req.body.width;
         const height:number = req.body.height;
-        let ext:string = req.body.ext;
+        let ext:string|undefined = req.body.ext;
         const aspectRatio:number = req.body.aspect_ratio;
         const duration:number = req.body.duration;
         const frameRate:number = req.body.framerate;
@@ -44,17 +42,17 @@ class VideoConverterController {
             return next(error);
         }
         const extFileName:string = path.parse(file.filename).ext;
-        let fileExt:any = extFileName.split('.').pop();
+        let fileExt:string|undefined = extFileName.split('.').pop();
         if (ext === undefined) {
             ext = fileExt;
         }
         const saveFileName:string = path.parse(file.filename).name;
         const pathVideo:string = file.path;
-        /* Creating a new instance of the VideoCommand class. */
+        // Creating a new instance of the VideoCommand class.
         const videoConverter = new VideoCommand();
-        /* Creating a new instance of the Execute class. */
+        // Creating a new instance of the Execute class.
         const execute = new Execute();
-        /* Setting the values of the properties of the VideoCommand class. */
+        // Setting the values of the properties of the VideoCommand class.
         videoConverter.inputFile = pathVideo;
         videoConverter.outExtension = ext;
         videoConverter.newWidth = width;
@@ -66,7 +64,7 @@ class VideoConverterController {
         videoConverter.bitrate = bitrate;
         const outputAudiofile:string = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${ext}`;
         videoConverter.convertedFilePath = outputAudiofile;
-        /* Calling the getCommand() method of the VideoCommand class. */
+        // Calling the getCommand() method of the VideoCommand class.
         const command = videoConverter.getCommand();
         try {
             const response:any = await execute.command(command, videoConverter.convertedFilePath);
@@ -98,8 +96,8 @@ class VideoConverterController {
     get(req, res) {
         try {
             const file:any = req.query;
-            const downloadFile:any = file.src;
-            res.download(downloadFile); // Set disposition and send it.
+            const downloadFile:string = file.src;
+            res.download(downloadFile);
         } catch (error) {
             res.status(500).json({
                 ok: false,

@@ -16,10 +16,9 @@ const router = express.Router();
 const ImageConverterController = require('../controllers/image_converter_controller');
 // Importing the uploadImage function from the converter_middleware.ts file.
 const { uploadImage } = require('../middlewares/converter_middleware');
-
 const converter = new ImageConverterController();
-/* Defining a route that will be used to post a request to the server. */
+// Defining a route that will be used to post a request to the server.
 router.post('/converter', uploadImage, converter.post);
-/* This is a route that will be used to download the converted file. */
+// This is a route that will be used to download the converted file.
 router.get('/download', converter.get);
 module.exports = router;

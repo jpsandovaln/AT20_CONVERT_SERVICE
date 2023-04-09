@@ -14,7 +14,6 @@ const { ImageCommand } = require('../service/imageConverter/imageCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-
 class ImageConverterController {
     /**
      * It receives a request with an image, and returns a converted image
@@ -23,21 +22,23 @@ class ImageConverterController {
      * @returns The converted image.
      */
     async post(req, res) {
-        /* Getting the image conversion options from the request body. */
+        // Getting the image conversion options from the request body.
             const width:number = req.body.width;
             const height:number = req.body.height;
-            let ext:string = req.body.ext;
+            let ext:string|undefined = req.body.ext;
             const rotate:number = req.body.rotate;
             const colors:string = req.body.colors;
-        /* Checking if the file is being uploaded. */
+
+        // Checking if the file is being uploaded.
         const file:any = req.file;
         if (!file) {
             const error = new Error('Please upload an image');
             return next(error);
         }
-        /* Getting the extension of the file that is being uploaded. */
+
+        // Getting the extension of the file that is being uploaded.
         const extFileName:string = path.parse(file.filename).ext;
-        let fileExt:any = extFileName.split('.').pop();
+        let fileExt:string|undefined = extFileName.split('.').pop();
         if (ext === undefined) {
             ext = fileExt;
         }
@@ -56,12 +57,13 @@ class ImageConverterController {
         imageConverter.typeOfOutput = colors;
         // Sets the degrees to rotate clock wisw CW
         imageConverter.rotateCW = rotate;
-        /* Creating the path where the converted file is going to be saved. */
+        // Creating the path where the converted file is going to be saved.
         const outputImageFile:string = `${process.env.DOWNLOAD_PATH_IMAGE}/${saveFileName}.${ext}`;
         imageConverter.convertedFilePath = outputImageFile;
         // Gets the command to execute the desired action
         const command = imageConverter.getCommand();
-        /* Executing the command that is going to convert the image. */
+
+        // Executing the command that is going to convert the image.
         try {
             const response:any = await execute.command(command, imageConverter.convertedFilePath);
             const downloadUrl:string = `${req.protocol}://${req.get('host')}/api/v1.0/convert_image/download?src=${encodeURIComponent(outputImageFile)}`;
@@ -92,7 +94,7 @@ class ImageConverterController {
     get(req, res) {
         try {
             const file:any = req.query;
-            const downloadFile:any = file.src;
+            const downloadFile:string = file.src;
             res.download(downloadFile);
         } catch (error) {
             res.status(500).json({

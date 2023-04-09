@@ -16,7 +16,6 @@ const router = express.Router();
 const PdfConverterController = require('../controllers/pdf_converter_controller');
 // Importing the `uploadPdf` function from the `converter_middleware.ts` file.
 const { uploadPdf } = require('../middlewares/converter_middleware');
-
 const converter = new PdfConverterController();
 // A route that is being defined.
 router.post('/converter', uploadPdf, converter.post);

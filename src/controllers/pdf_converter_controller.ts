@@ -15,8 +15,6 @@ const { Execute } = require('../service/Execute');
 const { next } = require('process');
 const path = require('path');
 const fs = require('fs');
-
-
 class PdfConverterController {
     /**
      * It receives a PDF file, converts it to the desired format and returns the state of the
@@ -26,7 +24,7 @@ class PdfConverterController {
      * @returns The response of the conversion.
      */
     async post(req, res) {
-        /* Getting the parameters from the request body and the file from the request. */
+        // Getting the parameters from the request body and the file from the request.
         const typeTo:string = req.body.typeTo;
         const density:number = req.body.density;
         const quality:number = req.body.quality;
@@ -38,8 +36,8 @@ class PdfConverterController {
         const saveFileName:string = path.parse(file.filename).name;
         const pathPdf:string = file.path;
         const extFileName:string = path.parse(file.filename).ext;
-        let ext:string = typeTo;
-        let fileExt:any = extFileName.split('.').pop();
+        let ext:string|undefined = typeTo;
+        let fileExt:string|undefined = extFileName.split('.').pop();
         if (ext === undefined) {
             ext = fileExt;
         }
@@ -51,7 +49,7 @@ class PdfConverterController {
         pdf.inputFile = pathPdf;
         //Adds the extension of the images output files
         pdf.outExtension = ext;
-        //Sets the parameters of convertion
+        //Sets the parameters of conversion
         pdf.newDensity = density;
         pdf.newQuality = quality;
         const folderName:string = `${process.env.DOWNLOAD_PATH_PDF}/${saveFileName}`;
@@ -99,7 +97,7 @@ class PdfConverterController {
     async get(req, res) {
         try {
             const file:any = req.query;
-            const downloadFile:any = file.src;
+            const downloadFile:string = file.src;
             await res.zip({
                 files: [
                     {   content: 'pdf_image',

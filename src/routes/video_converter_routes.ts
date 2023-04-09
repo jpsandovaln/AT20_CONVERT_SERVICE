@@ -17,7 +17,6 @@ const router = express.Router();
 const VideoConverterController = require('../controllers/video_converter_controller');
 // Importing the uploadVideo function from the converter_middleware.ts file.
 const { uploadVideo } = require('../middlewares/converter_middleware');
-
 // Creating a new instance of the VideoConverterController class.
 const converter = new VideoConverterController();
 // A route that is being defined.

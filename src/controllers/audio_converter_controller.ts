@@ -14,8 +14,6 @@ const { AudioCommand } = require('../service/audioConverter/audioCommand.js');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-
-
 class AudioConverterController {
     /**
      * Receives a file and converts it to the specified audio format.
@@ -30,18 +28,18 @@ class AudioConverterController {
         const codec:string = req.body.codec;
         const file:any = req.file;
 
-        /* Check if the file is not null, otherwise return an error. */
+        // Check if the file is not null, otherwise return an error.
         if (!file) {
             const error = new Error('Please upload an audio file.');
             return next(error);
         }
 
-        /* Get the name of the file that will be converted. */
+        // Get the name of the file that will be converted.
         const saveFileName:string = path.parse(file.filename).name;
         const pathAudio:string = file.path;
-        const extFileName:string = path.parse(file.filename).ext;
-        let ext:string = typeTo;
-        let fileExt:any = extFileName.split('.').pop();
+        const extFileName:string = (path.parse(file.filename).ext).toString();
+        let ext:string|undefined = typeTo?.toString();
+        let fileExt:string|undefined = extFileName.split('.').pop();
 
         if (ext === undefined) {
             ext = fileExt;
@@ -60,7 +58,7 @@ class AudioConverterController {
         audioConverter.convertedFilePath = outputAudiofile;
         const command = audioConverter.getCommand();
 
-        /* This is a promise that waits for the response of the audioConverter.run function. */
+        // This is a promise that waits for the response of the audioConverter.run function.
         try {
             const response:any = await execute.command(command, audioConverter.convertedFilePath);
             const downloadUrl:string = `${req.protocol}://${req.get('host')}/api/v1.0/convert_audio/download?src=${encodeURIComponent(outputAudiofile)}`;
@@ -89,7 +87,7 @@ class AudioConverterController {
     get(req, res) {
         try {
             const file:any = req.query;
-            const downloadFile:any = file.src;
+            const downloadFile:string = file.src;
             res.download(downloadFile);
         } catch (error) {
             res.status(500).json({
@@ -100,5 +98,4 @@ class AudioConverterController {
         }
     }
 }
-
 module.exports = AudioConverterController;
