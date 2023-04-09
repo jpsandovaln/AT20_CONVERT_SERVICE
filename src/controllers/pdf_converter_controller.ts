@@ -75,7 +75,6 @@ class PdfConverterController {
                 stdout: response.stdout,
                 downloadUrl: downloadUrl,
             };
-
             res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
@@ -85,7 +84,6 @@ class PdfConverterController {
             });
         }
     }
-
 
     /**
      * The function takes a request object and a response object as parameters. It then uses the

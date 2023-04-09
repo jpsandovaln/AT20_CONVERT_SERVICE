@@ -68,7 +68,6 @@ class AudioConverterController {
                 stdout: response.stdout,
                 downloadUrl: downloadUrl,
             };
-
             res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({

@@ -73,7 +73,6 @@ class ImageConverterController {
                 stdout: response.stdout,
                 downloadUrl
             };
-
             res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
