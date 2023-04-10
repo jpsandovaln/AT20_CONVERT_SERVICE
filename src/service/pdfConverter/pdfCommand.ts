@@ -10,31 +10,27 @@
 * with Jalasoft
 */
 
-const { Command } = require('./../Command.js');
+import { Command } from '../Command';
 
-class pdfCommand extends Command {
+export class pdfCommand extends Command {
     //Sets the density attribute to be private
-    #density;
+    private _density: string;
 
     //Sets the quality attribute to be private
-    #quality;
+    private _quality: string;
 
     //Sets the pages attribute to be private
-    #pages;
+    private _pages: string;
 
     constructor() {
         //Gets the contructor of the parent class to use its attributes
         super();
-        //Gets the inputFile attribute from the parent class
-        super.inputFile;
-        //Gets the convertedFilePath attribute from the parent class
-        super.convertedFilePath;
         //Sets the density attribute to a string with no value
-        this.#density = '';
+        this._density = '';
         //Sets the quality attribute to a string with no value
-        this.#quality = '';
+        this._quality = '';
         //Sets the pages attribute to a string with no value
-        this.#pages = '';
+        this._pages = '';
     }
 
 
@@ -42,11 +38,11 @@ class pdfCommand extends Command {
      * Sets a density of the output file
      * @param densityValue Density - This is the value that represents the DPI of output images.
      */
-    set newDensity(densityValue) {
+    set density(densityValue: number) {
         if (densityValue === undefined) {
-            this.#density = '';
+            this._density = '';
         } else {
-            this.#density = `-density ${densityValue}`;
+            this._density = `-density ${densityValue}`;
         }
     }
 
@@ -54,11 +50,11 @@ class pdfCommand extends Command {
      * Sets a quality of the output file
      * @param qualityValue Quality - This is the value that specify the quality for the generated images.
      */
-    set newQuality(qualityValue) {
+    set quality(qualityValue: number) {
         if (qualityValue === undefined) {
-            this.#quality = '';
+            this._quality = '';
         } else {
-            this.#quality = `-quality ${qualityValue}`;
+            this._quality = `-quality ${qualityValue}`;
         }
     }
 
@@ -69,11 +65,11 @@ class pdfCommand extends Command {
     * @param rangeLow - The lowest page number in the range.
     * @param rangeHigh - The highest page number in the range.
     */
-    newPageRange(rangeLow, rangeHigh) {
+    newPageRange(rangeLow: number, rangeHigh: number): void {
         if (rangeLow == rangeHigh) {
-            this.#pages = `[${rangeHigh}]`;
+            this._pages = `[${rangeHigh}]`;
         } else {
-            this.#pages = `[${rangeLow}-${rangeHigh}]`;
+            this._pages = `[${rangeLow}-${rangeHigh}]`;
         }
     }
 
@@ -81,16 +77,9 @@ class pdfCommand extends Command {
      * Gets the command to be executed by the child process.
      * @returns {string} The command to be executed.
      */
-    getCommand() {
-        const converter = process.env.MAGICK;
-        var command = `${converter} ${this.#density} ${super.inputFile}${this.#pages} ${this.#quality} ${super.convertedFilePath}`;
+    getCommand(): string {
+        const converter:string = String(process.env.MAGICK);
+        var command: string = `${converter} ${this._density} ${this.inputFile}${this._pages} ${this._quality} ${this.convertedFilePath}`;
         return command;
     }
 }
-
-/*
-Exports the pdfCommand class
-*/
-module.exports = {
-    pdfCommand,
-};

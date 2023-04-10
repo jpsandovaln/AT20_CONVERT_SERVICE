@@ -10,76 +10,76 @@
 * with Jalasoft
 */
 
-class Command {
-    //Sets the outExtension attribute to be private
-    #outExtension;
+export abstract class Command {
+    /**
+     * The file extension for the output of the command.
+     * @protected {string}
+     */
+    protected _outExtension: string;
 
-    //Sets the convertedFilePath attribute to be private
-    #convertedFilePath;
+    /**
+     * The path to the converted output file.
+     * @protected {string}
+     */
+    protected _convertedFilePath: string;
 
-    //Sets the inputFile attribute to be private
-    #inputFile;
+    /**
+     * The path to the input file.
+     * @protected {string}
+     */
+    protected _inputFile: string;
 
     constructor() {
         //Sets the outExtension attribute a string with no value
-        this.#outExtension = '';
+        this._outExtension = '';
         //Sets the convertedFilePath attribute a string with no value
-        this.#convertedFilePath = '';
+        this._convertedFilePath = '';
         //Sets the inputFile attribute a string with no value
-        this.#inputFile = '';
+        this._inputFile = '';
     }
 
     /**
      * Returns the value of the private variable inputFile.
      * @returns {string} The inputFile property.
      */
-    get inputFile() {
-        return this.#inputFile;
+    get inputFile(): string {
+        return this._inputFile;
     }
 
     /**
     * Sets the inputFile attribute
     * @param {string} newFile - This is the file to be converted, it should be the name with its extension
     */
-    set inputFile (newFile) {
-        this.#inputFile = newFile;
+    set inputFile (newFile: string) {
+        this._inputFile = newFile;
     }
 
     /**
     * Sets the outExtension attribute
     * @param {string} newOutExtension - This is the extension the new file will have
     */
-    set outExtension(newOutExtension) {
-        this.#outExtension = newOutExtension;
+    set outExtension(newOutExtension: string) {
+        this._outExtension = newOutExtension;
     }
 
     /**
     * Sets the convertedFilePath attribute
     * @param {string} newPath - This is the path the new file will have including the name and extension of the new file
     */
-    set convertedFilePath(newPath) {
-        this.#convertedFilePath = newPath;
+    set convertedFilePath(newPath: string) {
+        this._convertedFilePath = newPath;
     }
 
     /**
      * Returns the value of the private variable convertedFilePath.
      * @returns {string} The convertedFilePath property.
      */
-    get convertedFilePath () {
-        return this.#convertedFilePath;
+    get convertedFilePath (): string {
+        return this._convertedFilePath;
     }
 
     /**
-     * Throws an error if the function is not implemented.
+     * Returns the command string to execute
      */
-    getCommand() {
-        throw new Error('Abstract class you must implement this method');
-    }
+    abstract getCommand(): string;
 }
-
-/*
-Exports the Command class
-*/
-module.exports = {
-    Command,
-};

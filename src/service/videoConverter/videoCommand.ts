@@ -10,62 +10,52 @@
 * with Jalasoft
 */
 
-const { Command } = require('../Command.js');
+import { Command } from '../Command';
+// const Command  = require('../Command.ts');
 
-class VideoCommand extends Command {
+export class VideoCommand extends Command {
     //Sets the width attribute to be private
-    #width;
+    private _width: string;
 
     //Sets the height attribute to be private
-    #height;
+    private _height: string;
 
     //Sets the aspectRatio attribute to be private
-    #aspectRatio;
+    private _aspectRatio: string;
 
     //Sets the duration attribute to be private
-    #duration;
+    private _duration: string;
 
     //Sets the framerate attribute to be private
-    #framerate;
+    private _framerate: string;
 
     //Sets the bitrate attribute to be private
-    #bitrate;
+    private _bitrate: string;
 
     //Sets the autoCodec attribute to be private
-    #autoCodec;
+    private _autoCodec: string;
 
     constructor() {
-        //Gets the contructor of the parent class to use its attributes
         super();
-        //Gets the inputFile attribute from the parent class
-        super.inputFile;
-        //Gets the convertedFilePath attribute from the parent class
-        super.convertedFilePath;
-        //Sets the width attribute to a string with no value
-        this.#width = '';
-        //Sets the height attribute to a string with no value
-        this.#height = '';
-        //Sets the aspectRatio attribute to a string with no value
-        this.#aspectRatio = '';
-        //Sets the duration attribute to a string with no value
-        this.#duration = '';
-        //Sets the framerate attribute to a string with no value
-        this.#framerate = '';
-        //Sets the bitrate attribute to a string with no value
-        this.#bitrate = '';
-        //Sets the autoCodec attribute to a string with no value
-        this.#autoCodec = '';
+        // Inicialize the attributes with empty strings
+        this._width = '';
+        this._height = '';
+        this._aspectRatio = '';
+        this._duration = '';
+        this._framerate = '';
+        this._bitrate = '';
+        this._autoCodec = '';
     }
 
     /**
     * Sets the new width of the output file
     * @param {integer} Width - This is the width of the output file
     */
-    set newWidth(Width) {
+    set width(Width: number) {
         if (Width === undefined) {
-            this.#width = '';
+            this._width = '';
         } else {
-            this.#width = `-s ${Width}x`;
+            this._width = `-s ${Width}x`;
         }
     }
 
@@ -73,11 +63,11 @@ class VideoCommand extends Command {
     * Sets the new heigth of the output file
     * @param {integer} Heigth - This is the heigth of the output file
     */
-    set newHeight(Height) {
+    set height(Height: number) {
         if (Height === undefined) {
-            this.#height = '';
+            this._height = '';
         } else {
-            this.#height = `${Height}`;
+            this._height = `${Height}`;
         }
     }
 
@@ -85,11 +75,11 @@ class VideoCommand extends Command {
     * Sets the aspectRatio of the output file
     * @param {string} ratio This is the new ratio of the output file
     */
-    set aspectRatio(ratio) {
+    set aspectRatio(ratio: string) {
         if (ratio === undefined) {
-            this.#aspectRatio = '';
+            this._aspectRatio = '';
         } else {
-            this.#aspectRatio = `-aspect ${ratio}`;
+            this._aspectRatio = `-aspect ${ratio}`;
         }
     }
 
@@ -97,11 +87,11 @@ class VideoCommand extends Command {
      * Sets the duration of the input video to be converted
      * @param {integer} duration - The duration of the input video to be converted
      */
-    set duration(duration) {
+    set duration(duration: number) {
         if (duration === undefined) {
-            this.#duration = '';
+            this._duration = '';
         } else {
-            this.#duration = `-t ${duration}`;
+            this._duration = `-t ${duration}`;
         }
     }
 
@@ -109,11 +99,11 @@ class VideoCommand extends Command {
     * Sets the framerate of the output file
     * @param {string} framerate This is the new framerate of the output file
     */
-    set framerate(framerate) {
+    set framerate(framerate: number) {
         if (framerate === undefined) {
-            this.#framerate = '';
+            this._framerate = '';
         } else {
-            this.#framerate = `-r ${framerate}`;
+            this._framerate = `-r ${framerate}`;
         }
     }
 
@@ -121,11 +111,11 @@ class VideoCommand extends Command {
     * Sets the bitrate of the output file
     * @param {string} bitrate This is the new bitrate of the output file
     */
-    set bitrate(bitrate) {
+    set bitrate(bitrate: string) {
         if (bitrate === undefined) {
-            this.#bitrate = '';
+            this._bitrate = '';
         } else {
-            this.#bitrate = `-b:v ${bitrate}`;
+            this._bitrate = `-b:v ${bitrate}`;
         }
     }
 
@@ -133,11 +123,11 @@ class VideoCommand extends Command {
     * Sets the autoCodec of the output file
     * @param {string} autoCodec This is the new autoCodec of the output file
     */
-    set autoCodec(autoCodec) {
+    set autoCodec(autoCodec: string) {
         if (autoCodec === undefined) {
-            this.#autoCodec = '';
+            this._autoCodec = '';
         } else {
-            this.#autoCodec = `-c:v ${autoCodec}`;
+            this._autoCodec = `-c:v ${autoCodec}`;
         }
     }
 
@@ -147,15 +137,9 @@ class VideoCommand extends Command {
      * used to convert the video file
      * @returns {string} - The command to be executed by the child process.
      */
-    getCommand() {
-        const converter = process.env.FFMPEG;
-        var command = `${converter} -i ${super.inputFile} ${this.#width}${this.#height} ${this.#aspectRatio} ${this.#duration} ${this.#framerate} ${this.#bitrate} ${this.#autoCodec} ${super.convertedFilePath}`;
+    getCommand(): string {
+        const converter: string = String(process.env.FFMPEG);
+        const command: string = `${converter} -i ${this.inputFile} ${this._width}${this._height} ${this._aspectRatio} ${this._duration} ${this._framerate} ${this._bitrate} ${this._autoCodec} ${this.convertedFilePath}`;
         return command;
     }
 }
-/*
-Exports the VideoCommand class
-*/
-module.exports = {
-    VideoCommand,
-};
