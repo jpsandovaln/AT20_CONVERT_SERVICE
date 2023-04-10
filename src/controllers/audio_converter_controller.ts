@@ -38,7 +38,7 @@ class AudioConverterController {
         const saveFileName:string = path.parse(file.filename).name;
         const pathAudio:string = file.path;
         const extFileName:string = (path.parse(file.filename).ext).toString();
-        let ext:string|undefined = typeTo?.toString();
+        let ext:string|undefined = typeTo;
         let fileExt:string|undefined = extFileName.split('.').pop();
 
         if (ext === undefined) {
