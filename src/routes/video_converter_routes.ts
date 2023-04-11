@@ -1,5 +1,5 @@
 /*
-* @audio_converter_routes.js Copyright(c) 2023 Jalasoft
+* @video_converter_routes.js Copyright(c) 2023 Jalasoft
 * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 * Av.General Inofuentes esquina Calle20, Edificio Union No1376, La Paz, Bolivia
 * All rights reserved
@@ -10,18 +10,17 @@
 * with Jalasoft
 */
 
-
+export{};
 const express = require('express');
 const router = express.Router();
-// This is importing the AudioConverterController class from the audio_converter_controller.js file.
-const AudioConverterController = require('../controllers/audio_converter_controller.js');
-// This is importing the uploadAudio function from the converter_middleware.js file.
-const { uploadAudio } = require('../middlewares/converter_middleware.js');
-
-// Creating a new instance of the AudioConverterController class.
-const converter = new AudioConverterController();
-// Defining a route that will be used to post a file to the server.
-router.post('/converter', uploadAudio, converter.post);
+// Importing the video_converter_controller.ts file.
+const VideoConverterController = require('../controllers/video_converter_controller');
+// Importing the uploadVideo function from the converter_middleware.ts file.
+const { uploadVideo } = require('../middlewares/converter_middleware');
+// Creating a new instance of the VideoConverterController class.
+const converter = new VideoConverterController();
+// A route that is being defined.
+router.post('/converter', uploadVideo, converter.post);
 // This is a route that will be used to download the converted file.
 router.get('/download', converter.get);
 module.exports = router;

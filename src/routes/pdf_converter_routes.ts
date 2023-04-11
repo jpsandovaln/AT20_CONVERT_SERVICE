@@ -9,14 +9,13 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
+export{};
 const express = require('express');
 const router = express.Router();
-// Importing the `PdfConverterController` class from the `pdf_converter_controller.js` file.
+// Importing the `PdfConverterController` class from the `pdf_converter_controller.ts` file.
 const PdfConverterController = require('../controllers/pdf_converter_controller');
-// Importing the `uploadPdf` function from the `converter_middleware.js` file.
-const { uploadPdf } = require('../middlewares/converter_middleware.js');
-
+// Importing the `uploadPdf` function from the `converter_middleware.ts` file.
+const { uploadPdf } = require('../middlewares/converter_middleware');
 const converter = new PdfConverterController();
 // A route that is being defined.
 router.post('/converter', uploadPdf, converter.post);

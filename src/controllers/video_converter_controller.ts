@@ -9,13 +9,11 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
+export{};
 const { VideoCommand } = require('../service/videoConverter/videoCommand');
 const { Execute } = require('../service/Execute.js');
 const { next } = require('process');
 const path = require('path');
-
-
 class VideoConverterController {
     /**
      * Creates an object with the properties of the request body, creates a new instance of the
@@ -29,55 +27,54 @@ class VideoConverterController {
     async post(req, res) {
         /* Getting the file from the request and the videoReq is getting the width, height, ext, and
         aspect ratio from the request body. */
-        const file = req.file;
-        const videoReq = {
-            width : req.body.width,
-            height : req.body.height,
-            ext : req.body.ext,
-            aspectRatio : req.body.aspect_ratio,
-            duration : req.body.duration,
-            framerate : req.body.framerate,
-            autoCodec : req.body.autoCodec,
-            bitrate : req.body.bitrate,
-        };
+        const file:any = req.file;
+        const width:number = req.body.width;
+        const height:number = req.body.height;
+        let ext:string|undefined = req.body.ext;
+        const aspectRatio:number = req.body.aspect_ratio;
+        const duration:number = req.body.duration;
+        const frameRate:number = req.body.framerate;
+        const autoCodec:string = req.body.autoCodec;
+        const bitrate:string = req.body.bitrate;
+
         if (!file) {
-            const error = new error('Please upload an Image');
+            const error = new Error('Please upload an Image');
             return next(error);
         }
-        const extFileName = path.parse(file.filename).ext;
-        var fileExt = extFileName.split('.').pop();
-        if (videoReq.ext === undefined) {
-            videoReq.ext = fileExt;
+        const extFileName:string = path.parse(file.filename).ext;
+        let fileExt:string|undefined = extFileName.split('.').pop();
+        if (ext === undefined) {
+            ext = fileExt;
         }
-        const saveFileName = path.parse(file.filename).name;
-        /* Creating a new instance of the VideoCommand class. */
-        var videoConverter = new VideoCommand();
-        /* Creating a new instance of the Execute class. */
+        const saveFileName:string = path.parse(file.filename).name;
+        const pathVideo:string = file.path;
+        // Creating a new instance of the VideoCommand class.
+        const videoConverter = new VideoCommand();
+        // Creating a new instance of the Execute class.
         const execute = new Execute();
-        /* Setting the values of the properties of the VideoCommand class. */
-        videoConverter.inputFile = file.path;
-        videoConverter.outExtension = videoReq.ext;
-        videoConverter.newWidth = videoReq.width;
-        videoConverter.newHeight = videoReq.height;
-        videoConverter.aspectRatio = videoReq.aspectRatio;
-        videoConverter.duration = videoReq.duration;
-        videoConverter.newFrameRate = videoReq.frameRate;
-        videoConverter.autoCodec = videoReq.autoCodec;
-        videoConverter.bitrate = videoReq.bitrate;
-        const outputAudiofile = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${videoReq.ext}`;
+        // Setting the values of the properties of the VideoCommand class.
+        videoConverter.inputFile = pathVideo;
+        videoConverter.outExtension = ext;
+        videoConverter.newWidth = width;
+        videoConverter.newHeight = height;
+        videoConverter.aspectRatio = aspectRatio;
+        videoConverter.duration = duration;
+        videoConverter.newFrameRate = frameRate;
+        videoConverter.autoCodec = autoCodec;
+        videoConverter.bitrate = bitrate;
+        const outputAudiofile:string = `${process.env.DOWNLOAD_PATH_VIDEO}/${saveFileName}.${ext}`;
         videoConverter.convertedFilePath = outputAudiofile;
-        /* Calling the getCommand() method of the VideoCommand class. */
-        var command = videoConverter.getCommand();
+        // Calling the getCommand() method of the VideoCommand class.
+        const command = videoConverter.getCommand();
         try {
-            const response = await execute.command(command, videoConverter.convertedFilePath);
-            const downloadUrl = `${req.protocol}://${req.get('host')}/download?src=${encodeURIComponent(outputAudiofile)}`;
+            const response:any = await execute.command(command, videoConverter.convertedFilePath);
+            const downloadUrl:string= `${req.protocol}://${req.get('host')}/api/v1.0/convert_video/download?src=${encodeURIComponent(outputAudiofile)}`;
 
             // Update the response object to include the download URL
             const updatedResponse = {
                 stdout: response.stdout,
                 downloadUrl: downloadUrl,
             };
-
             res.send(updatedResponse);
         } catch (error) {
             res.status(500).json({
@@ -97,13 +94,13 @@ class VideoConverterController {
      */
     get(req, res) {
         try {
-            const file = req.query;
-            const downloadFile = file.src;
-            res.download(downloadFile); // Set disposition and send it.
+            const file:any = req.query;
+            const downloadFile:string = file.src;
+            res.download(downloadFile);
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                msg: 'Error de servidor ' + error,
+                msg: 'Server error ' + error,
                 error: error
             });
         }

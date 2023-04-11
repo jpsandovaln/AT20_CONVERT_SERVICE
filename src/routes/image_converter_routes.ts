@@ -9,18 +9,16 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-
-
+export{};
 const express = require('express');
 const router = express.Router();
-//Importing the ImageConverterController class from the image_converter_controller.js file.
+// Importing the ImageConverterController class from the image_converter_controller.ts file.
 const ImageConverterController = require('../controllers/image_converter_controller');
-//Importing the uploadImage function from the converter_middleware.js file.
-const { uploadImage } = require('../middlewares/converter_middleware.js');
-
+// Importing the uploadImage function from the converter_middleware.ts file.
+const { uploadImage } = require('../middlewares/converter_middleware');
 const converter = new ImageConverterController();
-/* Defining a route that will be used to post a request to the server. */
+// Defining a route that will be used to post a request to the server.
 router.post('/converter', uploadImage, converter.post);
-/* This is a route that will be used to download the converted file. */
+// This is a route that will be used to download the converted file.
 router.get('/download', converter.get);
 module.exports = router;
