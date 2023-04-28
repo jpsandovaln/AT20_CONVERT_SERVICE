@@ -9,36 +9,35 @@
 * accordance with the terms of the license agreement you entered into
 * with Jalasoft
 */
-const dotenv = require('dotenv');
-const { pdfCommand } = require('../pdfConverter/pdfCommand');
-const { Execute } = require('../Execute');
+import dotenv from 'dotenv';
+import { pdfCommand } from '../pdfConverter/pdfCommand';
+import { Execute } from '../Execute';
 
 dotenv.config({path: __dirname + './../../../.env'});
 
 // Define the input file name.
-const newFile = 'test.pdf';
-// Define the output files base name and extension.
-const newFileName = 'test';
-const outExtension = 'jpg';
+const newFile: string = 'test.pdf';
+const newFileName: string = 'test';
+const outExtension: string = 'jpg';
 // Creates a new instance of the pdfCommand class.
-let pdf = new pdfCommand();
+const pdf: pdfCommand = new pdfCommand();
 // Creates a new instance of the Execute class.
-let execute = new Execute();
+const execute: Execute = new Execute();
 // Adds the input file with its address to convert
 pdf.inputFile = `${process.env.UPLOADS_PATH_PDF}${newFile}`;
 // Adds the extension of the images output files
 pdf.outExtension = outExtension;
 // Sets the density and quality of the output images.
-pdf.newDensity = 150;
-pdf.newQuality = 90;
+pdf.density = 150;
+pdf.quality = 90;
 // Creates the output path for the converted file.
 const outFilePath = `${process.env.DOWNLOAD_PATH_PDF}${newFileName}.${outExtension}`;
 pdf.convertedFilePath = outFilePath;
 // Sets the page range to convert.
 pdf.newPageRange(0, 0);
 // Gets the command to execute the desired action.
-let command = pdf.getCommand();
+const command: string = pdf.getCommand();
 // Printing the command to the console.
-console.log(command);
+// console.log(command);
 //Converts the input file and returns the state of the conversion
 execute.command(command, pdf.convertedFilePath);

@@ -10,19 +10,21 @@
 * with Jalasoft
 */
 
-const dotenv = require('dotenv');
-const { AudioCommand } = require('../audioConverter/audioCommand.js');
-const { Execute } = require('../Execute.js');
+import dotenv from 'dotenv';
+import { AudioCommand } from '../audioConverter/audioCommand';
+import { Command } from '../Command';
+import { Execute } from '../Execute';
+
 dotenv.config({path: __dirname + './../../../.env'});
 
-const newAudioFile = 'DigitalLove.flac';
-const newAudioFileName = 'DigitalLove';
-const audioOutExtension = 'flac';
+const newAudioFile: string = 'DigitalLove.flac';
+const newAudioFileName: string = 'DigitalLove';
+const audioOutExtension: string = 'flac';
 
 //Creates a new object audio for audio commands
-var audio = new AudioCommand();
+const audio = new AudioCommand();
 //Creates an object for executing the commands that were sent
-var execute = new Execute();
+const execute: Execute = new Execute();
 //Adds the input file with its address to convert
 audio.inputFile = `${'../audioConverter/inputs/'}${newAudioFile}`;
 //Adds the extension of the wanted output file
@@ -32,14 +34,14 @@ audio.bitRate = '96k';
 // set duration to 60 seconds
 audio.duration = 60;
 // set the audio codec to MP3
-audio.codec = 'libmp3lame';
+// audio.codec = 'libmp3lame';
 //Creates the output path according to design
-const audioOutFilePath = `${'../audioConverter/outputs/'}${newAudioFileName}.${audioOutExtension}`;
+const audioOutFilePath: string = `${'../audioConverter/outputs/'}${newAudioFileName}.${audioOutExtension}`;
 //Sets the output path of the converted file
 audio.convertedFilePath = audioOutFilePath;
 //Gets the command to execute the desired action
-var command = audio.getCommand();
-console.log(command);
+const command: string = audio.getCommand();
+// console.log(command);
 //Converts the input file and returns the state of the conversion
 execute.command(command, audio.convertedFilePath);
 
