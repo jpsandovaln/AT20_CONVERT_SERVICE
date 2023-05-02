@@ -121,4 +121,76 @@ describe ('This is the test suite for the Audio Converter service', () => {
         const outStout = 'Conversion Completed';
         expect(result.stdout).toBe(outStout);
     });
+    it ('Should return a valid command to execute, managing an empty value settled in bitRate', () => {
+        const newAudioFile: string = 'DigitalLove.flac';
+        const newAudioFileName: string = 'DigitalLove';
+        const audioOutExtension: string = 'mp3';
+        // Creates a new object audio for audio commands
+        const audio = new AudioCommand();
+        // Adds the input file with its address to convert
+        audio.inputFile = `${process.env.UPLOADS_PATH_AUDIO}${newAudioFile}`;
+        // Adds the extension of the wanted output file
+        audio.outExtension = audioOutExtension;
+        // Adds command to convert the bit rate of the input file
+        audio.bitRate = '';
+        // set duration to 60 seconds
+        audio.duration = 60;
+        // Creates the output path according to design
+        const audioOutFilePath: string = `${process.env.DOWNLOAD_PATH_AUDIO}${newAudioFileName}.${audioOutExtension}`;
+        // Sets the output path of the converted file
+        audio.convertedFilePath = audioOutFilePath;
+        // Gets the command to execute the desired action
+        const command: string = audio.getCommand();
+        // Converts the input file and returns the state of the conversion
+        const expectedCommand = 'ffmpeg -i ./src/service/audioConverter/inputs/DigitalLove.flac -y -t 60 ./src/service/audioConverter/outputs/DigitalLove.mp3';
+        expect(command).toBe(expectedCommand);
+    });
+    it ('Should return a valid command to execute, managing a zero value settled in duration', () => {
+        const newAudioFile: string = 'DigitalLove.flac';
+        const newAudioFileName: string = 'DigitalLove';
+        const audioOutExtension: string = 'mp3';
+        // Creates a new object audio for audio commands
+        const audio = new AudioCommand();
+        // Adds the input file with its address to convert
+        audio.inputFile = `${process.env.UPLOADS_PATH_AUDIO}${newAudioFile}`;
+        // Adds the extension of the wanted output file
+        audio.outExtension = audioOutExtension;
+        // Adds command to convert the bit rate of the input file
+        audio.bitRate = '96k';
+        // set duration to 60 seconds
+        audio.duration = 0;
+        // Creates the output path according to design
+        const audioOutFilePath: string = `${process.env.DOWNLOAD_PATH_AUDIO}${newAudioFileName}.${audioOutExtension}`;
+        // Sets the output path of the converted file
+        audio.convertedFilePath = audioOutFilePath;
+        // Gets the command to execute the desired action
+        const command: string = audio.getCommand();
+        // Converts the input file and returns the state of the conversion
+        const expectedCommand = 'ffmpeg -i ./src/service/audioConverter/inputs/DigitalLove.flac -y ./src/service/audioConverter/outputs/DigitalLove.mp3';
+        expect(command).toBe(expectedCommand);
+    });
+    it ('Should return a valid command to execute, managing a negative value settled in duration', () => {
+        const newAudioFile: string = 'DigitalLove.flac';
+        const newAudioFileName: string = 'DigitalLove';
+        const audioOutExtension: string = 'mp3';
+        // Creates a new object audio for audio commands
+        const audio = new AudioCommand();
+        // Adds the input file with its address to convert
+        audio.inputFile = `${process.env.UPLOADS_PATH_AUDIO}${newAudioFile}`;
+        // Adds the extension of the wanted output file
+        audio.outExtension = audioOutExtension;
+        // Adds command to convert the bit rate of the input file
+        audio.bitRate = '96k';
+        // set duration to 60 seconds
+        audio.duration = -45;
+        // Creates the output path according to design
+        const audioOutFilePath: string = `${process.env.DOWNLOAD_PATH_AUDIO}${newAudioFileName}.${audioOutExtension}`;
+        // Sets the output path of the converted file
+        audio.convertedFilePath = audioOutFilePath;
+        // Gets the command to execute the desired action
+        const command: string = audio.getCommand();
+        // Converts the input file and returns the state of the conversion
+        const expectedCommand = 'ffmpeg -i ./src/service/audioConverter/inputs/DigitalLove.flac -y ./src/service/audioConverter/outputs/DigitalLove.mp3';
+        expect(command).toBe(expectedCommand);
+    });
 });
