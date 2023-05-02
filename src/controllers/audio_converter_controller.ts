@@ -10,8 +10,8 @@
 * with Jalasoft
 */
 
-const { AudioCommand } = require('../service/audioConverter/audioCommand.js');
-const { Execute } = require('../service/Execute.js');
+const { AudioCommand } = require('../service/audioConverter/audioCommand.ts');
+const { Execute } = require('../service/Execute.ts');
 const { next } = require('process');
 const path = require('path');
 class AudioConverterController {

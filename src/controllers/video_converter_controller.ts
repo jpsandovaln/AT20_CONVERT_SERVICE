@@ -11,7 +11,7 @@
 */
 export{};
 const { VideoCommand } = require('../service/videoConverter/videoCommand');
-const { Execute } = require('../service/Execute.js');
+const { Execute } = require('../service/Execute.ts');
 const { next } = require('process');
 const path = require('path');
 class VideoConverterController {
