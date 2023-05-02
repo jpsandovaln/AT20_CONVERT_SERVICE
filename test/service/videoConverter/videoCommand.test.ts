@@ -52,7 +52,7 @@ describe('This is the test suite for the pdf convert service', () => {
 
         // execute.command(command, video.convertedFilePath);
     });
-    it('Should return the command to be executed according to the requirements previously inserted', async () => {
+    it('Should execute the command and return a message for a successful convertion', async () => {
         const newVideoFile: string = 'maxwell.mp4';
         const newVideoFileName: string = 'maxwell';
         const videoOutExtension: string = 'avi';
@@ -121,5 +121,27 @@ describe('This is the test suite for the pdf convert service', () => {
         const result = await execute.command(command, video.convertedFilePath);
         const outPath = './src/service/videoConverter/outputs/maxwell.mov';
         expect(result.outputPath).toStrictEqual(outPath);
+    });
+    it('Should execute the command without setting any parameter, just change the extension', async () => {
+        const newVideoFile: string = 'maxwell.mp4';
+        const newVideoFileName: string = 'maxwell2';
+        const videoOutExtension: string = 'avi';
+        // Creates a new object video for video commands
+        const video = new VideoCommand();
+        // Creates an object for executing the commands that were sent
+        const execute = new Execute();
+        // Adds the input file with its address to convert
+        video.inputFile = `${process.env.UPLOADS_PATH_VIDEO}${newVideoFile}`;
+        // Adds the extension of the wanted output file
+        video.outExtension = videoOutExtension;
+        // Creates the output path according to design
+        const videoOutFilePath = `${process.env.DOWNLOAD_PATH_VIDEO}${newVideoFileName}.${videoOutExtension}`;
+        // Sets the output path of the converted file
+        video.convertedFilePath = videoOutFilePath;
+        // Gets the command to execute the desired action
+        const command = video.getCommand();
+        const result = await execute.command(command, video.convertedFilePath);
+        const outState = 'Conversion Completed';
+        expect(result.stdout).toStrictEqual(outState);
     });
 });

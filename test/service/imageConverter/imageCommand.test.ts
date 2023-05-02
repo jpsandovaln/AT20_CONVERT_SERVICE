@@ -98,4 +98,25 @@ describe('This is the test suite for the image convert service', () => {
         const outPath = './src/service/imageConverter/outputs/test.jpg';
         expect(result.outputPath).toBe(outPath);
     });
+    it('Should execute the command without setting any parameter, just change the extension', async () => {
+        const newImageFile = 'test.jpg';
+        const newImageFileName = 'test2';
+        const imageOutExtension = 'png';
+        // Creates a new object image for image commands
+        var image: ImageCommand = new ImageCommand();
+        // Creates an object for executing the commands that were sent
+        var execute: Execute = new Execute();
+        // Adds the input file with its address to convert
+        image.inputFile = `${process.env.UPLOADS_PATH_IMAGE}${newImageFile}`;
+        // Adds the extension of the wanted output file
+        image.outExtension = imageOutExtension;
+        // Creates the output path according to design
+        const imageOutFilePath: string = `${process.env.DOWNLOAD_PATH_IMAGE}${newImageFileName}.${imageOutExtension}`;
+        image.convertedFilePath = imageOutFilePath;
+        // Gets the command to execute the desired action
+        const command = image.getCommand();
+        const result = await execute.command(command, image.convertedFilePath);
+        const outStout = 'Conversion Completed';
+        expect(result.stdout).toBe(outStout);
+    });
 });
