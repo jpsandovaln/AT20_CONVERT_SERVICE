@@ -11,8 +11,8 @@
 */
 export{};
 const { ImageCommand } = require('../service/imageConverter/imageCommand');
-const { Execute } = require('../service/Execute.ts');
-const { next } = require('process');
+const { Execute } = require('../service/Execute.js');
+//const { next } = require('process');
 const path = require('path');
 class ImageConverterController {
     /**
@@ -33,7 +33,8 @@ class ImageConverterController {
         const file:any = req.file;
         if (!file) {
             const error = new Error('Please upload an image');
-            return next(error);
+            console.log(error);
+            //return next(error);
         }
 
         // Getting the extension of the file that is being uploaded.
@@ -66,8 +67,8 @@ class ImageConverterController {
         // Executing the command that is going to convert the image.
         try {
             const response:any = await execute.command(command, imageConverter.convertedFilePath);
-            const downloadUrl:string = `${req.protocol}://${req.get('host')}/api/v1.0/convert_image/download?src=${encodeURIComponent(outputImageFile)}`;
-
+            const downloadUrl:string = `${req.protocol}://localhost:9090/api/v1.0/convert_image/download?src=${encodeURIComponent(outputImageFile)}`;
+            console.log(downloadUrl);
             // Update the response object to include the download URL
             const updatedResponse = {
                 stdout: response.stdout,

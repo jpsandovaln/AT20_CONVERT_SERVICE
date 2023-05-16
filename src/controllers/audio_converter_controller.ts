@@ -10,9 +10,9 @@
 * with Jalasoft
 */
 
-const { AudioCommand } = require('../service/audioConverter/audioCommand.ts');
-const { Execute } = require('../service/Execute.ts');
-const { next } = require('process');
+const { AudioCommand } = require('../service/audioConverter/audioCommand.js');
+const { Execute } = require('../service/Execute.js');
+//const { next } = require('process');
 const path = require('path');
 class AudioConverterController {
     /**
@@ -31,7 +31,8 @@ class AudioConverterController {
         // Check if the file is not null, otherwise return an error.
         if (!file) {
             const error = new Error('Please upload an audio file.');
-            return next(error);
+            console.log(error);
+            //return next(error);
         }
 
         // Get the name of the file that will be converted.

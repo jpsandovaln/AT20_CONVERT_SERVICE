@@ -11,8 +11,8 @@
 */
 export{};
 const { VideoCommand } = require('../service/videoConverter/videoCommand');
-const { Execute } = require('../service/Execute.ts');
-const { next } = require('process');
+const { Execute } = require('../service/Execute.js');
+//const { next } = require('process');
 const path = require('path');
 class VideoConverterController {
     /**
@@ -39,7 +39,8 @@ class VideoConverterController {
 
         if (!file) {
             const error = new Error('Please upload an Image');
-            return next(error);
+            console.log(error);
+            //return next(error);
         }
         const extFileName:string = path.parse(file.filename).ext;
         let fileExt:string|undefined = extFileName.split('.').pop();

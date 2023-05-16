@@ -12,7 +12,7 @@
 export{};
 const { pdfCommand } = require('../service/pdfConverter/pdfCommand');
 const { Execute } = require('../service/Execute');
-const { next } = require('process');
+//const { next } = require('process');
 const path = require('path');
 const fs = require('fs');
 class PdfConverterController {
@@ -31,7 +31,8 @@ class PdfConverterController {
         const file:any = req.file;
         if (!file) {
             const error = new Error('Please upload a PDF');
-            return next(error);
+            console.log(error);
+            //return next(error);
         }
         const saveFileName:string = path.parse(file.filename).name;
         const pathPdf:string = file.path;
