@@ -6,7 +6,7 @@ services:
     ports:
       - '5000:9090'
     environment:
-      - FFMPEG =ffmpeg
+      - FFMPEG=ffmpeg
       - MAGICK=magick
       - UPLOADS_PATH_PDF=./src/service/pdfConverter/inputs/
       - UPLOADS_PATH_AUDIO=./src/service/audioConverter/inputs/
