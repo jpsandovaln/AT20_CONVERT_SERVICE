@@ -11,7 +11,7 @@
 */
 export{};
 const { ImageCommand } = require('../service/imageConverter/imageCommand');
-const { Execute } = require('../service/Execute.js');
+const { Execute } = require('../service/Execute.ts');
 const { next } = require('process');
 const path = require('path');
 class ImageConverterController {
