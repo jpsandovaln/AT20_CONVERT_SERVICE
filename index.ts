@@ -31,10 +31,13 @@ const app = express();
 app.use(zip());
 dotenv.config();
 app.use(cors());
-
+app.get('/api/v1.0', (res) => {
+    res.send('hello from home');
+});
 /* A middleware that is used to route the request to the appropriate route. */
+
 app.use('/api/v1.0/convert_audio', audioConverter);
-app.use('/api/v1.0/convert_video', videoConverter);
+app.use('/api/v1.0/convert_video', videoConverter);//localhost:9090/api/v1.0/'
 app.use('/api/v1.0/convert_image', imageConverter);
 app.use('/api/v1.0/convert_pdf', pdfConverter);
 
